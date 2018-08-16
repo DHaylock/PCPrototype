@@ -5,6 +5,8 @@ Sophie Sampson Playble City Prototype
 This is the repository for the Playable city prototype for Sophie Samsom.
 The system takes the screen data and converts it into pixel data which is then displayed onto LED panels.
 
+![Dev Gif](./docs/dev.gif)
+
 ### Setup
 #### Raspberry Pi Setup
 Follow these instructions to setup the raspberry pi for the first time.
