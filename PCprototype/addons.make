@@ -1,0 +1,5 @@
+ofxAutoReloadedShader
+ofxEasing
+ofxGui
+ofxJSON
+ofxOsc
