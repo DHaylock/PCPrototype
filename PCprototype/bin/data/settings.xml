@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<group>
+	<LED_Simulator>
+		<Shader_Active>1</Shader_Active>
+		<Pixel_Size>10</Pixel_Size>
+		<Resolution_Width>640</Resolution_Width>
+		<Resolution_Height>960</Resolution_Height>
+		<UnknownName>1, 1, 1, 1</UnknownName>
+	</LED_Simulator>
+	<Visual_Manager>
+		<Mode>1</Mode>
+		<Current_Video>1</Current_Video>
+		<Current_Image>0</Current_Image>
+	</Visual_Manager>
+</group>

@@ -120,7 +120,7 @@ void VisualManager::draw()
     if (mode) {
         if (!videos.empty()) {
             if (videos.size() > currentVideo) {
-                videos[currentVideo].draw(0,0);
+                videos[currentVideo].draw(0,0,ofGetWidth(),ofGetHeight());
             }
         }
     }
@@ -147,8 +147,10 @@ void VisualManager::keyPress(ofKeyEventArgs &key)
         if(keymap.count((char)key.key) > 0) {
             if (mode) {
                 currentVideo = keymap.at((char)key.key);
-                videos[currentVideo].setPosition(0.0);
-                videos[currentVideo].play();
+                if (videos.size() > currentVideo) {
+                    videos[currentVideo].setPosition(0.0);
+                    videos[currentVideo].play();
+                }
             }
             else {
                 currentImage = keymap.at((char)key.key);
