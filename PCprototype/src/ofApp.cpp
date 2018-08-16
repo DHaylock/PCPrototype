@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    ofSetDataPathRoot("../Resources/data/");
     ledProcessor.init();
     visualManager.setup();
     
@@ -13,9 +14,13 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::setupGUI()
 {
+    openRoot.addListener(this, &ofApp::openRootFolder);
+    
     parameters.add(ledProcessor.parameters);
     parameters.add(visualManager.parameters);
+    
     gui.setup(parameters);
+    gui.add(openRoot.setup("Open Root Folder"));
 }
 
 //--------------------------------------------------------------
@@ -58,5 +63,11 @@ void ofApp::keyPressed(int key)
 void ofApp::keyReleased(int key)
 {
 
+}
+
+//--------------------------------------------------------------
+void ofApp::openRootFolder()
+{
+    ofSystem("open ./data/");
 }
 

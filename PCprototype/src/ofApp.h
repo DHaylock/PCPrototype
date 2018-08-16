@@ -22,5 +22,8 @@ class ofApp : public ofBaseApp{
         void setupGUI();
         ofxPanel gui;
         ofParameterGroup parameters;
+        ofxButton openRoot;
         bool showGui = false;
+    
+        void openRootFolder();
 };
