@@ -5,8 +5,8 @@ in vec2 texcoord;
 in vec4 position;
 out vec2 textureCoords;
 
-void main(){
-
+void main()
+{
     textureCoords = texcoord;
 	gl_Position = modelViewProjectionMatrix * position;
 }
