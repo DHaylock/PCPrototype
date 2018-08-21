@@ -26,6 +26,17 @@ Follow these instructions to setup the raspberry pi for the first time.
 
 #### LED Matrix Setup
 
+There are two methods to setting up the RGB Matrix Bonnet.
+
+1./ Simplest
+
+```
+curl https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/rgb-matrix.sh >rgb-matrix.sh
+sudo bash rgb-matrix.sh
+```
+
+2./ Simple
+
 This is copied from the [Adafruit tutorial](https://learn.adafruit.com/raspberry-pi-led-matrix-display/software).
 
 * Do a update and upgrade.
@@ -62,16 +73,19 @@ $ make clean all
 // This is the _total_ width and height of the rectangle defined by all the
 // chained panels.  The width should be a multiple of the panel pixel width (32),
 // and the height should be a multiple of the panel pixel height (8, 16, or 32).
+
 display_width = 64;
 display_height = 96;
 
 // Define the width of each panel in pixels.  This should always be 32 (but can
 // in theory be changed).
+
 panel_width = 32;
 
 // Define the height of each panel in pixels.  This is typically 8, 16, or 32.
 // NOTE: Each panel in the display _must_ be the same height!  You cannot mix
 // 16 and 32 pixel high panels for example.
+
 panel_height = 32;
 
 // Define the total number of panels in each chain.  Count up however many
@@ -103,33 +117,28 @@ parallel_count = 1;
 // right to the bottom right panel):
 //       ______________    ______________
 //      |    Panel     |  |    Panel     |
-//   /==| order  = 1   |<=| order  = 0   |<= Chain start (from Pi)
-//   |  | rotate = 0   |  | rotate = 0   |
-//   |  |______________|  |______________|
-//   |   ______________    ______________
-//   |  |    Panel     |  |    Panel     |
-//   \==| order  = 2   |=>| order  = 3   |==\
-//      | rotate = 180 |  | rotate = 180 |  |
+//      | order  = 5   |<=| order  = 4   |<=\
+//      | rotate = 0   |  | rotate = 0   |  | 
 //      |______________|  |______________|  |
 //       ______________    ______________   |
 //      |    Panel     |  |    Panel     |  |
-//      | order  = 5   |<=| order  = 4   |==/
-//      | rotate = 180 |  | rotate = 180 |
+//   /=>| order  = 2   |=>| order  = 3   |==/
+//   |  | rotate = 180 |  | rotate = 180 |  
+//   |  |______________|  |______________|  
+//   |   ______________    ______________   
+//   |  |    Panel     |  |    Panel     |  
+//   \==| order = 1    |<=| order = 0    |<= Chain start (from Pi)
+//      | rotate = 0   |  | rotate = 0   |
 //      |______________|  |______________|
-
-//
-// Notice the chain starts in the upper right and snakes around to the bottom
-// right.  The order of each panel is set as its position along the chain,
-// and rotation is applied to the lower panels that are flipped around relative
-// to the panels above them.
 //
 // Not shown but if you're using parallel chains you can specify for each entry
 // in the panels list a 'parallel = x;' option where x is the ID of a parallel
 // chain (0, 1, or 2).
+
 panels = (
-  ( { order = 1; rotate =   0; }, { order = 0; rotate =   0; } ),
+  ( { order = 5; rotate =   0; }, { order = 4; rotate =   0; } ),
   ( { order = 2; rotate = 180; }, { order = 3; rotate = 180; } ),
-  ( { order = 4; rotate =   0; }, { order = 5; rotate =   0; } )
+  ( { order = 1; rotate = 0; }, { order = 0; rotate = 0; } )
 )
 
 // By default the rpi-fb-matrix tool will resize and scale down the screen
