@@ -41,9 +41,8 @@ class LEDProcessor {
         ofParameterGroup parameters;
         ofParameter<bool> active;
         ofParameter<int> pixelSize;
-        ofParameter<float> resolutionW;
-        ofParameter<float> resolutionH;
-        ofParameter<ofFloatColor> overlayColor;
+        ofParameter<float> vignetteAmount;
+        ofParameter<ofFloatColor> tintColor;
     
     private:
     
