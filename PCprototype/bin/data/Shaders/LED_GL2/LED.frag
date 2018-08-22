@@ -4,17 +4,16 @@ uniform sampler2DRect tex0;
 uniform float pixelSize;
 uniform vec2 resolution;
 uniform vec4 tintColor;
-uniform float vignetteAmount;
-
 varying vec2 textureCoords;
 
 void main(void)
 {
-	vec2 vUV = vec2(floor(textureCoords / pixelSize) * pixelSize);
-	vec4 color = texture2DRect(tex0, vUV);
+	// Get the Texture Coordinates
+	vec2 pixelatedUVs = textureCoords;
 
-	vec2 cUV = textureCoords / resolution;
-	float dist = 1.0 - distance(cUV,vec2(0.5)) * vignetteAmount;
+	// Get the Pixelated UV's
+	pixelatedUVs -= mod(pixelatedUVs,pixelSize);
 
-    gl_FragColor = color * (dist * tintColor);
+	// Output the Texture Color with the Tint Color
+    gl_FragColor = texture2DRect(tex0, pixelatedUVs) * tintColor;
 }
