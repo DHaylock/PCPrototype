@@ -20,8 +20,6 @@
 		6822F8289D179C4BF60E3519 /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD8ABC1A79DFA286B03694B2 /* ofxButton.cpp */; };
 		6A56FBB72123046A0001CC97 /* LEDProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A56FBB52123046A0001CC97 /* LEDProcessor.cpp */; };
 		6A56FBBA2124D99B0001CC97 /* VisualManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A56FBB82124D99B0001CC97 /* VisualManager.cpp */; };
-		6A56FBBE21256D070001CC97 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A56FBBC21256D070001CC97 /* StateManager.cpp */; };
-		6A56FBC121257CF30001CC97 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A56FBBF21257CF30001CC97 /* State.cpp */; };
 		6D18B06D57BBD1C062CDB30A /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30636095A83276EDC23F505E /* ofxBaseGui.cpp */; };
 		70FBD7FAE644F9110FAE7AA3 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68C4DED172CDCAE37FBB4A6 /* ofxPanel.cpp */; };
 		7E4EE6D1A7BEAF6282506B5E /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F093951836EBD2516FAF7 /* UdpSocket.cpp */; };
@@ -103,10 +101,6 @@
 		6A56FBB62123046A0001CC97 /* LEDProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEDProcessor.h; sourceTree = "<group>"; };
 		6A56FBB82124D99B0001CC97 /* VisualManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VisualManager.cpp; sourceTree = "<group>"; };
 		6A56FBB92124D99B0001CC97 /* VisualManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisualManager.h; sourceTree = "<group>"; };
-		6A56FBBC21256D070001CC97 /* StateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
-		6A56FBBD21256D070001CC97 /* StateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateManager.h; sourceTree = "<group>"; };
-		6A56FBBF21257CF30001CC97 /* State.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
-		6A56FBC021257CF30001CC97 /* State.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
 		6DC55DB51AECDD5390C5874A /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxOscReceiver.h; path = ../../../of_v0.10.0_osx_release/addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		720F75E782F7CF1D3D8FA2C8 /* easing_terms_of_use.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = easing_terms_of_use.html; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/easing_terms_of_use.html; sourceTree = SOURCE_ROOT; };
 		737773FE8143611BD60D8AB3 /* ofxAutoReloadedShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAutoReloadedShader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.h; sourceTree = SOURCE_ROOT; };
@@ -269,17 +263,6 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
-		6A56FBC221258FCE0001CC97 /* States (Unused) */ = {
-			isa = PBXGroup;
-			children = (
-				6A56FBBC21256D070001CC97 /* StateManager.cpp */,
-				6A56FBBD21256D070001CC97 /* StateManager.h */,
-				6A56FBBF21257CF30001CC97 /* State.cpp */,
-				6A56FBC021257CF30001CC97 /* State.h */,
-			);
-			path = "States (Unused)";
-			sourceTree = "<group>";
-		};
 		86D2677079A3AF4A5A88E29A /* oscpack */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,7 +395,6 @@
 				6A56FBB62123046A0001CC97 /* LEDProcessor.h */,
 				6A56FBB82124D99B0001CC97 /* VisualManager.cpp */,
 				6A56FBB92124D99B0001CC97 /* VisualManager.h */,
-				6A56FBC221258FCE0001CC97 /* States (Unused) */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -578,7 +560,6 @@
 				CD79645E932E13257A1029A5 /* ofxSliderGroup.cpp in Sources */,
 				A7702BC48B7C58A3C4AC7670 /* ofxToggle.cpp in Sources */,
 				6822F8289D179C4BF60E3519 /* ofxButton.cpp in Sources */,
-				6A56FBBE21256D070001CC97 /* StateManager.cpp in Sources */,
 				1021A1411DADC9FF9AAA8698 /* ofxGuiGroup.cpp in Sources */,
 				F84DAD08C0AA616E2870A3ED /* ofxInputField.cpp in Sources */,
 				22B0F534E1C4B11F705A27A7 /* ofxLabel.cpp in Sources */,
@@ -594,7 +575,6 @@
 				3D27AA3FF4FF6632C80C1335 /* OscOutboundPacketStream.cpp in Sources */,
 				CB2C041178D19B1BF5D387BF /* OscTypes.cpp in Sources */,
 				F9CF07130AC77D0BAA307265 /* OscReceivedElements.cpp in Sources */,
-				6A56FBC121257CF30001CC97 /* State.cpp in Sources */,
 				BB2723D4FC56EE75E3D42F51 /* OscPrintReceivedElements.cpp in Sources */,
 				34D7A45394B32DD2CF6E46DE /* NetworkingUtils.cpp in Sources */,
 				7E4EE6D1A7BEAF6282506B5E /* UdpSocket.cpp in Sources */,

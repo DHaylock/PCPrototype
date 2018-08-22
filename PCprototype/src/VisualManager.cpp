@@ -7,6 +7,14 @@
 
 #include "VisualManager.h"
 
+
+//--------------------------------------------------------------
+void VisualManager::reloadContent()
+{
+    loadVideos();
+    loadImages();
+}
+
 //--------------------------------------------------------------
 void VisualManager::setup()
 {
@@ -65,16 +73,13 @@ void VisualManager::setup()
     keymap.insert(pair<char,int>('[',52));
     keymap.insert(pair<char,int>(']',53));
     
-    loadImages();
-    loadVideos();
+    reloadContent();
     
     ofAddListener(ofEvents().keyPressed, this, &VisualManager::keyPress);
     parameters.setName("Visual Manager");
     parameters.add(mode.set("Mode",false));
     parameters.add(currentVideo.set("Current Video", 0, 0, videos.size()));
     parameters.add(currentImage.set("Current Image", 0, 0, images.size()));
-
-    
 }
 
 //--------------------------------------------------------------

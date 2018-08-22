@@ -14,13 +14,18 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::setupGUI()
 {
+    openRoot.setup("Open Root Folder");
     openRoot.addListener(this, &ofApp::openRootFolder);
+ 
+    reloadContent.setup("Load New Content");
+    reloadContent.addListener(this, &ofApp::loadNewContent);
     
+    parameters.add(openRoot.getParameter());
+    parameters.add(reloadContent.getParameter());
     parameters.add(ledProcessor.parameters);
     parameters.add(visualManager.parameters);
     
     gui.setup(parameters);
-    gui.add(openRoot.setup("Open Root Folder"));
 }
 
 //--------------------------------------------------------------
@@ -69,5 +74,12 @@ void ofApp::keyReleased(int key)
 void ofApp::openRootFolder()
 {
     ofSystem("open ./data/");
+}
+
+//--------------------------------------------------------------
+void ofApp::loadNewContent()
+{
+    cout << "Loading New Content" << endl;
+    visualManager.reloadContent();
 }
 

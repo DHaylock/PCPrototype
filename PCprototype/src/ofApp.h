@@ -23,7 +23,9 @@ class ofApp : public ofBaseApp{
         ofxPanel gui;
         ofParameterGroup parameters;
         ofxButton openRoot;
+        ofxButton reloadContent;
         bool showGui = false;
     
         void openRootFolder();
+        void loadNewContent();
 };
