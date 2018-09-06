@@ -3,29 +3,20 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    ofSetDataPathRoot("../Resources/data/");
+    logSize = 25;
+    // Setup the Gui
+    gui.setup();
+//    ofSetDataPathRoot("../Resources/data/");
     ledProcessor.init();
     visualManager.setup();
     
     ofEnableAlphaBlending();
-    setupGUI();
-}
-
-//--------------------------------------------------------------
-void ofApp::setupGUI()
-{
-    openRoot.setup("Open Root Folder");
-    openRoot.addListener(this, &ofApp::openRootFolder);
- 
-    reloadContent.setup("Load New Content");
-    reloadContent.addListener(this, &ofApp::loadNewContent);
     
-    parameters.add(openRoot.getParameter());
-    parameters.add(reloadContent.getParameter());
-    parameters.add(ledProcessor.parameters);
-    parameters.add(visualManager.parameters);
     
-    gui.setup(parameters);
+    
+    // Always start with the GUI open
+    bDrawGui = true;
+    
 }
 
 //--------------------------------------------------------------
@@ -45,14 +36,14 @@ void ofApp::draw()
 {
     ofBackground(0);
     ledProcessor.startCapture();
+    
     visualManager.draw();
+    
     ledProcessor.endCapture();
     ledProcessor.render();
     
-    if(showGui) {
-        gui.draw();
-    }
-    
+    if(bDrawGui)
+        drawGui();
 }
 
 //--------------------------------------------------------------
@@ -60,7 +51,7 @@ void ofApp::keyPressed(int key)
 {
     if(key == OF_KEY_TAB)
     {
-        showGui = !showGui;
+        bDrawGui = !bDrawGui;
     }
 }
 
@@ -71,15 +62,53 @@ void ofApp::keyReleased(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::openRootFolder()
+void ofApp::drawGui()
 {
-    ofSystem("open ./data/");
+    auto mainSetting = ofxImGui::Settings();
+    mainSetting.windowPos = ofVec2f(10,0);
+    
+    gui.begin();
+    {
+//        mainSetting.windowSize = ofVec2f(400,300);
+        
+        if(ofxImGui::BeginWindow("Logs", mainSetting))
+        {
+            ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
+            if (ImGui::SmallButton("Clear"))
+            {
+                logs.clear();
+            }
+            ImGui::SliderInt("History Length", &logSize, 2, 100);
+            
+            ImGui::BeginChild("Scrolling",ImVec2(400, 250));
+            for (int i = 0; i < logs.size(); i++)
+            {
+                ImVec4 c(1, 1, 1, 1);
+                if(ofIsStringInString(logs[i],"[Error]"))
+                {
+                    c = ImVec4(1, 0, 0, 1);
+                }
+                else if(ofIsStringInString(logs[i],"[Success]"))
+                {
+                    c = ImVec4(0, 1, 0, 1);
+                }
+
+                ImGui::TextColored(c,"%s", logs[i].c_str());
+            }
+            ImGui::EndChild();
+        }
+        ofxImGui::EndWindow(mainSetting);
+    }
+    gui.end();
 }
 
 //--------------------------------------------------------------
-void ofApp::loadNewContent()
+void ofApp::gotMessage(ofMessage msg)
 {
-    cout << "Loading New Content" << endl;
-    visualManager.reloadContent();
+    if(logs.size() > logSize)
+    {
+        logs.pop_back();
+    }
+    cout << msg.message << endl;
+    logs.push_front(msg.message);
 }
-

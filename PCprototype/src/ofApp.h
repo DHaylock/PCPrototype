@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "LEDProcessor.h"
 #include "VisualManager.h"
-#include "ofxGui.h"
+#include "pcmain.h"
 
 class ofApp : public ofBaseApp{
 
@@ -19,13 +19,17 @@ class ofApp : public ofBaseApp{
         LEDProcessor ledProcessor;
         VisualManager visualManager;
     
-        void setupGUI();
-        ofxPanel gui;
-        ofParameterGroup parameters;
-        ofxButton openRoot;
-        ofxButton reloadContent;
-        bool showGui = false;
+        void drawGui();
     
-        void openRootFolder();
-        void loadNewContent();
+        ofxImGui::Gui gui;
+        bool bGuiVisible;
+        bool bMouseOverGui;
+        ofParameterGroup parameters;
+        bool bDrawGui = false;
+
+        // Debug Stuff
+        void gotMessage(ofMessage msg);
+        int logSize;
+        deque <string> logs;
 };
+
