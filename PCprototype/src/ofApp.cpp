@@ -4,20 +4,29 @@
 void ofApp::setup()
 {
     logSize = 25;
+    
     // Setup the Gui
     gui.setup();
+
+#ifndef TARGET_RASPBERRY_PI
 //    ofSetDataPathRoot("../Resources/data/");
-    ledProcessor.init();
-    visualManager.setup();
-    
-    ofEnableAlphaBlending();
+#else
+
+#endif
+
+    // Load the Configuration
     Config::instance().load();
     
+    // Initialize the LED Shader
+    ledProcessor.init();
     
+    // Initialize the Visual Manager
+    visualManager.init();
     
     // Always start with the GUI open
     bDrawGui = true;
     
+    ofEnableAlphaBlending();
 }
 
 //--------------------------------------------------------------
@@ -50,9 +59,24 @@ void ofApp::draw()
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    if(key == OF_KEY_TAB)
-    {
-        bDrawGui = !bDrawGui;
+    switch (key) {
+        case OF_KEY_TAB:
+            bDrawGui = !bDrawGui;
+            break;
+        case OF_KEY_RETURN: {
+            // Cycle through the modes
+            if (StateManager::instance().currentMode >= 2)
+            {
+                StateManager::instance().currentMode = 0;
+            }
+            else
+            {
+                StateManager::instance().currentMode++;
+            }
+        }
+            break;
+        default:
+            break;
     }
 }
 
@@ -85,7 +109,7 @@ void ofApp::drawGui()
         ofxImGui::EndWindow(mainSetting);
         
         
-        if(ofxImGui::BeginWindow("Logs", mainSetting))
+        if(ofxImGui::BeginWindow("Logs", mainSetting,false))
         {
             ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
             if (ImGui::SmallButton("Clear"))
