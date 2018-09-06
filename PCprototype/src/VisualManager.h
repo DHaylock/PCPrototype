@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "ofxGui.h"
 #include "ofMain.h"
+#include "ofxThreadedImageLoader.h"
 
 enum class DISPLAY_MODE {
     VIDEOS,
@@ -70,6 +71,8 @@ class VisualManager {
         ofParameter<bool> mode;
     
         vector<ofVideoPlayer> videos;
+    
+        ofxThreadedImageLoader loader;
         vector<ofImage> images;
         map<char,int> keymap;
 };

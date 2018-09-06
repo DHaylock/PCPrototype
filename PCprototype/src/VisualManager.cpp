@@ -85,14 +85,16 @@ void VisualManager::setup()
 //--------------------------------------------------------------
 void VisualManager::loadImages()
 {
+    loader.stopThread();
+    
     images.clear();
     ofDirectory dir("Images");
     dir.sort();
     
+    images.resize(dir.size());
+    
     for (int i = 0; i < (int)dir.size(); i++) {
-        ofImage img;
-        img.load(dir.getPath(i));
-        images.push_back(img);
+        loader.loadFromDisk(images[i], dir.getPath(i));
     }
 }
 

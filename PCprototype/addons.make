@@ -3,3 +3,4 @@ ofxEasing
 ofxGui
 ofxJSON
 ofxOsc
+ofxThreadedImageLoader
