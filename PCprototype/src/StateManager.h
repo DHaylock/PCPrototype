@@ -13,13 +13,20 @@
 
 class StateManager {
 public:
+    
     /**
      Instance Creator
      */
     //-------------------------------------------------------------
     static StateManager &instance()
     {
-        static StateManager* instance_= new StateManager();
+        static StateManager * instance_ = nullptr;
+        if(instance_ == nullptr)
+        {
+            instance_ = new StateManager();
+            PCMessage("State Manager", "[Success]: Created State Manager");
+        }
+        
         return *instance_;
     }
     

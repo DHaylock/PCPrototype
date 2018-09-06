@@ -71,6 +71,19 @@ void ofApp::drawGui()
     {
 //        mainSetting.windowSize = ofVec2f(400,300);
         
+        if (ofxImGui::BeginWindow("pcprototype", mainSetting,true))
+        {
+            ImGui::Text("%.1f FPS (%.3f ms/frame)", ofGetFrameRate(), 1000.0f / ImGui::GetIO().Framerate);
+            
+            if(ofxImGui::BeginTree("Modes", mainSetting))
+            {
+                ofxImGui::AddRadio(StateManager::instance().currentMode,{"Debug","KenKenPa","Physical Toy"});
+                ofxImGui::EndTree(mainSetting);
+            }
+        }
+        ofxImGui::EndWindow(mainSetting);
+        
+        
         if(ofxImGui::BeginWindow("Logs", mainSetting))
         {
             ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
