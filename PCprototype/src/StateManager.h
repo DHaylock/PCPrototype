@@ -42,7 +42,6 @@ public:
         return currentMode;
     }
     
-    ofParameterGroup parameters;
     ofParameter <int> currentMode { "Mode", static_cast<int>(Mode::Debug) };
     
 private:
