@@ -1,0 +1,22 @@
+{
+  "kenkenpa": {
+    "player1startkey": "",
+    "player1endkey": "",
+    "player2startkey": "",
+    "player2endkey": "",
+    "versions": [
+      {
+        "id": 0,
+        "waitouttimer": 5000,
+        "attractortimer": 60000,
+        "name": "Default",
+        "attractor": "",
+        "kiosk": "",
+        "reward": ""
+      }
+    ]
+  },
+  "physicaltoy": {
+    
+  }
+}

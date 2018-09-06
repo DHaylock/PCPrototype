@@ -11,6 +11,7 @@ void ofApp::setup()
     visualManager.setup();
     
     ofEnableAlphaBlending();
+    Config::instance().load();
     
     
     

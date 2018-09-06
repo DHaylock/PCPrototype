@@ -15,6 +15,7 @@
 		407466F21BAC30A2C747955A /* Helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F78BA117B6D476329A16B2EA /* Helpers.cpp */; };
 		68CFA056EBFB7E19D9F86763 /* VisualManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD13A52FD81E480DFA32FDE9 /* VisualManager.cpp */; };
 		6A50FCEF214161570032886F /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A50FCED214161560032886F /* Timer.cpp */; };
+		6A50FCF4214172040032886F /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A50FCF3214172040032886F /* Config.cpp */; };
 		8E729DF13F4590206F588770 /* EngineOpenGLES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EBECDC4955DB2D157B24852 /* EngineOpenGLES.cpp */; };
 		94A8481CAA738AFFE7C155F1 /* Gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3523924D83563D185D075F8A /* Gui.cpp */; };
 		B55E6051C592BD8F78881EB2 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53F87F2318A1CB7011FC3235 /* imgui.cpp */; };
@@ -85,6 +86,8 @@
 		6A50FCED214161560032886F /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		6A50FCEE214161560032886F /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		6A50FCF1214162820032886F /* Tween.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tween.h; sourceTree = "<group>"; };
+		6A50FCF2214172040032886F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		6A50FCF3214172040032886F /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		720F75E782F7CF1D3D8FA2C8 /* easing_terms_of_use.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = easing_terms_of_use.html; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/easing_terms_of_use.html; sourceTree = SOURCE_ROOT; };
 		737773FE8143611BD60D8AB3 /* ofxAutoReloadedShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAutoReloadedShader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.h; sourceTree = SOURCE_ROOT; };
 		7C4BC837B3FB023D82B5168F /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxAutoReloadedShader.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
@@ -202,6 +205,8 @@
 		6A50FCF02141615F0032886F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				6A50FCF3214172040032886F /* Config.cpp */,
+				6A50FCF2214172040032886F /* Config.h */,
 				6A50FCF1214162820032886F /* Tween.h */,
 				6A50FCEC2141609F0032886F /* pcmain.h */,
 				6A50FCED214161560032886F /* Timer.cpp */,
@@ -505,6 +510,7 @@
 				397A632C84F2D9BAC17DCA5F /* imgui_demo.cpp in Sources */,
 				BE8DC34241C1B9F7617DF2EF /* imgui_draw.cpp in Sources */,
 				D0F9EFF7AA4192FD125E906F /* ofxJSONElement.cpp in Sources */,
+				6A50FCF4214172040032886F /* Config.cpp in Sources */,
 				BB88D93F8C516CE8EEE25627 /* jsoncpp.cpp in Sources */,
 				C887FB2F59E07DE2CAE3DFD0 /* ofxThreadedImageLoader.cpp in Sources */,
 			);

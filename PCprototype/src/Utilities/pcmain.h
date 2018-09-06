@@ -32,6 +32,50 @@ void PCMessage(T s_Class,T s_Message) {
     ofSendMessage(msg);
 }
 
+struct KenKenPa {
+    KenKenPa() {}
+    KenKenPa(int id,
+                  string name,
+                  int waitOutTimer,
+                  int attractorTimer,
+                  string attractorFile,
+                  string kioskFile,
+                  string rewardfile)
+    {
+        this->id = id;
+        this->name = name;
+        this->waitOutTimer = waitOutTimer;
+        this->attractorTimer = attractorTimer;
+        this->attractorFile = attractorFile;
+        this->kioskFile = kioskFile;
+        this->rewardfile = rewardfile;
+    }
+    int id;
+    string name;
+    int waitOutTimer;
+    int attractorTimer;
+    string attractorFile;
+    string kioskFile;
+    string rewardfile;
+};
+
+struct KenKenPaData {
+    KenKenPaData() {}
+    KenKenPaData(char player1StartKey,char player1EndKey,char player2StartKey,char player2EndKey,vector<KenKenPa> data)
+    {
+        this->player1StartKey = player1StartKey;
+        this->player1EndKey = player1EndKey;
+        this->player2StartKey = player2StartKey;
+        this->player2EndKey = player2EndKey;
+        this->data = data;
+    }
+    char player1StartKey;
+    char player1EndKey;
+    char player2StartKey;
+    char player2EndKey;
+    vector<KenKenPa> data;
+};
 
 #include "StateManager.h"
+#include "Config.h"
 
