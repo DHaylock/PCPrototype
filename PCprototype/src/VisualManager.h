@@ -28,7 +28,7 @@ class VisualManager {
          Setup the Manager
          */
         //--------------------------------------------------------------
-        void setup();
+        void init();
     
         /**
          Load the Files
