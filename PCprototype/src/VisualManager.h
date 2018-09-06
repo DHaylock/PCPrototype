@@ -9,7 +9,6 @@
 #define VisualManager_h
 
 #include <stdio.h>
-#include "ofxGui.h"
 #include "ofMain.h"
 #include "ofxThreadedImageLoader.h"
 
