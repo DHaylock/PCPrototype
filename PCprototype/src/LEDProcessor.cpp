@@ -11,12 +11,36 @@
 void LEDProcessor::init()
 {
 #ifdef TARGET_OPENGLES
-    shader.load("Shaders/LED_ES2/LED");
+    if(!shader.load("Shaders/LED_ES2/LED"))
+    {
+        PCMessage("LEDProcessor", "[Error]: ES2 Shader Not Loaded");
+    }
+    else
+    {
+        PCMessage("LEDProcessor", "[Success]: Shader Loaded for ES2");
+    }
 #else
-    if(ofIsGLProgrammableRenderer()){
-        shader.load("Shaders/LED_GL3/LED");
-    }else{
-        shader.load("Shaders/LED_GL2/LED");
+    if(ofIsGLProgrammableRenderer())
+    {
+        if(!shader.load("Shaders/LED_GL3/LED"))
+        {
+            PCMessage("LEDProcessor", "[Error]: GL3 Shader Not Loaded");
+        }
+        else
+        {
+            PCMessage("LEDProcessor", "[Success]: Shader Loaded for GL3");
+        }
+    }
+    else
+    {
+        if(!shader.load("Shaders/LED_GL2/LED"))
+        {
+            PCMessage("LEDProcessor", "[Error]: GL2 Shader Not Loaded");
+        }
+        else
+        {
+            PCMessage("LEDProcessor", "[Success]: Shader Loaded for GL2");
+        }
     }
 #endif
     
@@ -24,11 +48,12 @@ void LEDProcessor::init()
     shaderBuffer.begin();
         ofClear(0, 0, 0);
     shaderBuffer.end();
+    string ss = "[Success]: Setting Frame Buffer to " + ofToString(shaderBuffer.getWidth()) + "x" + ofToString(shaderBuffer.getHeight());
+    PCMessage("LEDProcessor", ss.c_str());
     
     parameters.setName("LED Simulator");
     parameters.add(active.set("Shader Active", true));
     parameters.add(pixelSize.set("Pixel Size", 15, 2, 75));
-    parameters.add(vignetteAmount.set("Vignette Amount", 0, 0, 1));
     parameters.add(tintColor.set(ofColor::white));
 }
 
@@ -54,7 +79,6 @@ void LEDProcessor::render()
         shader.setUniform1f("pixelSize", pixelSize);
         shader.setUniform2f("resolution", ofVec2f(ofGetWidth(), ofGetHeight()));
         shader.setUniform4f("tintColor", tintColor);
-        shader.setUniform1f("vignetteAmount", vignetteAmount);
         ofClear(0, 0, 0);
     }
     

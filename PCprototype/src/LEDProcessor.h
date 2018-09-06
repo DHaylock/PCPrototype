@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "ofxAutoReloadedShader.h"
+#include "pcmain.h"
 
 class LEDProcessor {
     public:
