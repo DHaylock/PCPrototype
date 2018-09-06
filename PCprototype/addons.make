@@ -1,6 +1,5 @@
 ofxAutoReloadedShader
 ofxEasing
-ofxGui
+ofxImGui
 ofxJSON
-ofxOsc
 ofxThreadedImageLoader
