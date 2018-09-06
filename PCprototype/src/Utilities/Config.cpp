@@ -22,11 +22,37 @@ void Config::load()
         PCMessage("Config Manager", "[Success]: Config File Loaded");
         
         // Load the Controllers
-        if(c.isMember("area"))
+        if(c.isMember("kenkenpa"))
         {
-//            WAMessage("Config", "Area Parameters Found");
-//            width = c["area"]["width"].asInt();
-//            height = c["area"]["height"].asInt();
+            PCMessage("Config Manager", "[Success]: Ken Ken Pa Config Found");
+            kkpdata.player1StartKey = c["kenkenpa"]["player1startkey"].asInt();
+            kkpdata.player1EndKey = c["kenkenpa"]["player1startkey"].asInt();
+            kkpdata.player2StartKey = c["kenkenpa"]["player2startkey"].asInt();
+            kkpdata.player2EndKey = c["kenkenpa"]["player2endkey"].asInt();
+            
+            vector<KenKenPa> kkd;
+            // Get the Versions
+            for (int i = 0; i < c["kenkenpa"]["versions"].size(); i++)
+            {
+                kkd.push_back(KenKenPa(c["kenkenpa"]["versions"][i]["id"].asInt(),
+                                c["kenkenpa"]["versions"][i]["name"].asString(),
+                                c["kenkenpa"]["versions"][i]["waitouttimer"].asInt(),
+                                c["kenkenpa"]["versions"][i]["attractortimer"].asInt(),
+                                c["kenkenpa"]["versions"][i]["attractor"].asString(),
+                                c["kenkenpa"]["versions"][i]["kiosk"].asString(),
+                                c["kenkenpa"]["versions"][i]["reward"].asString()));
+            }
+            
+            kkpdata.data = kkd;
+        }
+        else {
+            PCMessage("Config Manager", "[Error]: No kenkenpa config found");
         }
     }
+}
+
+//--------------------------------------------------------------
+KenKenPaData Config::getKenKenPa()
+{
+    return kkpdata;
 }

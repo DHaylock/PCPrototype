@@ -1,9 +1,19 @@
 {
+  "shader": {
+    "active": true,
+    "amount": 10,
+    "colour": {
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
+  },
   "kenkenpa": {
-    "player1startkey": "",
-    "player1endkey": "",
-    "player2startkey": "",
-    "player2endkey": "",
+    "player1startkey": 2,
+    "player1endkey": 1,
+    "player2startkey": 2,
+    "player2endkey": 5,
     "versions": [
       {
         "id": 0,

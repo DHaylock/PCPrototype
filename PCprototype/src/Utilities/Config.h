@@ -46,10 +46,10 @@ class Config {
          @return ken ken pa structure
          */
         //--------------------------------------------------------------
-        KenKenPa getKenKenPa();
+        KenKenPaData getKenKenPa();
     
     private:
-    
+        KenKenPaData kkpdata;
 };
 
 #endif /* Config_h */
