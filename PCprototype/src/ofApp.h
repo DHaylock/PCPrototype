@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
         ofxImGui::Gui gui;
         bool bGuiVisible;
         bool bMouseOverGui;
+    
         ofParameterGroup parameters;
         bool bDrawGui = false;
 

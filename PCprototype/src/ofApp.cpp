@@ -94,8 +94,6 @@ void ofApp::drawGui()
     
     gui.begin();
     {
-//        mainSetting.windowSize = ofVec2f(400,300);
-        
         if (ofxImGui::BeginWindow("pcprototype", mainSetting,true))
         {
             ImGui::Text("%.1f FPS (%.3f ms/frame)", ofGetFrameRate(), 1000.0f / ImGui::GetIO().Framerate);
@@ -105,10 +103,13 @@ void ofApp::drawGui()
                 ofxImGui::AddRadio(StateManager::instance().currentMode,{"Debug","KenKenPa","Physical Toy"});
                 ofxImGui::EndTree(mainSetting);
             }
+            
+            ofxImGui::AddGroup(ledProcessor.parameters, mainSetting);
         }
         ofxImGui::EndWindow(mainSetting);
         
-        
+        mainSetting.windowPos = ofVec2f(300,0);
+        // Log Window
         if(ofxImGui::BeginWindow("Logs", mainSetting,false))
         {
             ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
