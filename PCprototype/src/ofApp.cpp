@@ -114,6 +114,15 @@ void ofApp::drawGui()
             }
             
             ofxImGui::AddGroup(ledProcessor.parameters, mainSetting);
+            
+            if(ofxImGui::BeginTree("KenKenPa", mainSetting))
+            {
+                ofxImGui::AddGroup(visualManager.parameters,mainSetting);
+                ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Kiosk","Ready","Win","Reward"});
+                ofxImGui::EndTree(mainSetting);
+            }
+            
+            
         }
         ofxImGui::EndWindow(mainSetting);
         
