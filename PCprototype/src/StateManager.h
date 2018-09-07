@@ -30,6 +30,16 @@ public:
         return *instance_;
     }
     
+    /**
+     Returns the Current Mode
+     
+     @return mode
+     */
+    //-------------------------------------------------------------
+    int getKenKenState()
+    {
+        return currentKenKenState;
+    }
     
     /**
      Returns the Current Mode
@@ -43,6 +53,7 @@ public:
     }
     
     ofParameter <int> currentMode { "Mode", static_cast<int>(Mode::Debug) };
+    ofParameter <int> currentKenKenState { "KenKenState", static_cast<int>(KenKenState::Attractor) };
     
 private:
     vector <string> states;
