@@ -197,6 +197,106 @@ cd openFrameworks/apps/myApps/PCPrototype/bin
 
 ### OpenFrameworks Compilation
 
+These are the instructions for compiling openFrameworks
+
+```
+# Get the Pi ready 
+sudo apt-get clean
+sudo apt-get update
+sudo apt-get upgrade
+
+# Download oF
+cd /home/pi
+curl -k -O https://openframeworks.cc/versions/v0.10.0/of_v0.10.0_linuxarmv6l_release.tar.gz
+mkdir openFrameworks
+tar vxfz of_v0.9.8_linuxarmv6l_release.tar.gz -C openFrameworks --strip-components 1 
+
+# Install Dependancies
+cd /home/pi/openFrameworks/scripts/linux/debian
+sudo ./install_dependencies.sh
+
+# Compile!
+make Release -C /home/pi/openFrameworks/libs/openFrameworksCompiled/project
+```
+
+#### Addons
+
+You'll need some additional libraries to compile and use the software.
+
+```
+git clone https://github.com/kashimAstro/ofxGPIO.git
+git clone https://github.com/andreasmuller/ofxAutoReloadedShader.git
+git clone https://github.com/jeffcrouse/ofxJSON.git
+git clone https://github.com/arturoc/ofxEasing.git
+git clone https://github.com/jvcleave/ofxImGui.git
+git clone https://github.com/jvcleave/ofxOmxPlayer.git
+```
+
+### Configuration
+
+There are numerous config options in the software. This guide will show you how to customize for your needs.
+
+We are using a JSON config file and the options are divided up into chunks.
+
+#### Shader (Object)
+
+Configures the shader parameters, these are alterable in software but give you the option to hardcode when you have found the correct configuration.
+
+
+* ***active***: is the shader currently active.
+* ***amount***: how much to pixelate the images by.
+* ***colour***: what color would you like to tint the images with. This also does alpha values so if you want to reduce the brightness of the screen.
+
+```
+"shader": {
+    "active": true,
+    "amount": 10,
+    "colour": {
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
+  },
+```
+
+#### KenKenPa (Array of Objects)
+
+Configures the KenKenPa State. Essentially you can load multiple videos into the system this allows you to try different configurations. So for instance you might want video Attractor 1, Kiosk 1 and Reward 1 for one configuration, but may want Attractor 6, Kiosk 2 and Reward 1 in another.
+
+* ***player1startkey***: the ascii code for the the key press
+* ***player1endkey***: the ascii code for the the key press
+* ***player2startkey***: the ascii code for the the key press
+* ***player2endkey***: the ascii code for the the key press
+* ***versions***: array of the different configurations
+	* ***id***: id of the version
+	* ***waitouttimer***: how long we should wait before starting the count down
+	* ***attractortimer***: how long we wait after last action to restart the attractor video
+	* ***name***: name of the version
+	* ***attractor***: video file of the attractor
+	* ***kiosk***: video file of the kiosk
+	* ***reward***: video file of the reward
+
+
+```
+"kenkenpa": {
+    "player1startkey": 2,
+    "player1endkey": 1,
+    "player2startkey": 2,
+    "player2endkey": 5,
+    "versions": [
+      {
+        "id": 0,
+        "waitouttimer": 5000,
+        "attractortimer": 60000,
+        "name": "Default",
+        "attractor": "",
+        "kiosk": "",
+        "reward": ""
+      }
+    ]
+  },
+```
 
 
 ### Equipment List
