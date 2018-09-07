@@ -88,6 +88,7 @@
 		6A50FCF1214162820032886F /* Tween.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tween.h; sourceTree = "<group>"; };
 		6A50FCF2214172040032886F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		6A50FCF3214172040032886F /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
+		6A50FCF52142785A0032886F /* Stopwatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stopwatch.h; sourceTree = "<group>"; };
 		720F75E782F7CF1D3D8FA2C8 /* easing_terms_of_use.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = easing_terms_of_use.html; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/easing_terms_of_use.html; sourceTree = SOURCE_ROOT; };
 		737773FE8143611BD60D8AB3 /* ofxAutoReloadedShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAutoReloadedShader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.h; sourceTree = SOURCE_ROOT; };
 		7C4BC837B3FB023D82B5168F /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxAutoReloadedShader.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
@@ -210,6 +211,7 @@
 				6A50FCF1214162820032886F /* Tween.h */,
 				6A50FCEC2141609F0032886F /* pcmain.h */,
 				6A50FCED214161560032886F /* Timer.cpp */,
+				6A50FCF52142785A0032886F /* Stopwatch.h */,
 				6A50FCEE214161560032886F /* Timer.h */,
 			);
 			path = Utilities;
