@@ -11,11 +11,20 @@
 #include "ofxEasing.h"
 #include "ofxImGui.h"
 #include "Tween.h"
+#include "ofxCenteredTrueTypeFont.h"
 
 enum class Mode {
     Debug,
     KenKenPa,
     PhysicalToy
+};
+
+enum class KenKenState {
+    Attractor,
+    Kiosk,
+    Ready,
+    Win,
+    Reward
 };
 
 //-----------------------------------------------------
@@ -40,7 +49,7 @@ struct KenKenPa {
                   int attractorTimer,
                   string attractorFile,
                   string kioskFile,
-                  string rewardfile)
+                  string rewardFile)
     {
         this->id = id;
         this->name = name;
@@ -48,7 +57,7 @@ struct KenKenPa {
         this->attractorTimer = attractorTimer;
         this->attractorFile = attractorFile;
         this->kioskFile = kioskFile;
-        this->rewardfile = rewardfile;
+        this->rewardFile = rewardFile;
     }
     int id;
     string name;
@@ -56,24 +65,29 @@ struct KenKenPa {
     int attractorTimer;
     string attractorFile;
     string kioskFile;
-    string rewardfile;
+    string rewardFile;
 };
 
 struct KenKenPaData {
     KenKenPaData() {}
-    KenKenPaData(int player1StartKey,int player1EndKey,int player2StartKey,int player2EndKey,vector<KenKenPa> data)
+    KenKenPaData(int player1StartKey,int player1EndKey,int player2StartKey,int player2EndKey,int dualPlayersStartKey,int dualPlayersEndKey,vector<KenKenPa> versions)
     {
         this->player1StartKey = player1StartKey;
         this->player1EndKey = player1EndKey;
         this->player2StartKey = player2StartKey;
         this->player2EndKey = player2EndKey;
-        this->data = data;
+        this->dualPlayersStartKey = dualPlayersStartKey;
+        this->dualPlayersEndKey = dualPlayersEndKey;
+        this->versions = versions;
     }
     int player1StartKey;
     int player1EndKey;
     int player2StartKey;
     int player2EndKey;
-    vector<KenKenPa> data;
+    int dualPlayersStartKey;
+    int dualPlayersEndKey;
+    
+    vector<KenKenPa> versions;
 };
 
 #include "StateManager.h"
