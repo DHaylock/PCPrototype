@@ -10,19 +10,30 @@
     }
   },
   "kenkenpa": {
-    "player1startkey": 2,
-    "player1endkey": 1,
-    "player2startkey": 2,
-    "player2endkey": 5,
+    "player1startkey": 49,
+    "player1endkey": 113,
+    "player2startkey": 50,
+    "player2endkey": 119,
+    "dualplayerstartkey": 97,
+    "dualplayerendkey": 122,
     "versions": [
       {
         "id": 0,
         "waitouttimer": 5000,
         "attractortimer": 60000,
         "name": "Default",
-        "attractor": "",
-        "kiosk": "",
-        "reward": ""
+        "attractor": "Videos/attractors/1.mov",
+        "kiosk": "Videos/kiosks/1.mov",
+        "reward": "Videos/rewards/1.mov"
+      },
+      {
+        "id": 1,
+        "waitouttimer": 5000,
+        "attractortimer": 60000,
+        "name": "Default 2",
+        "attractor": "Videos/kiosks/1.mov",
+        "kiosk": "Videos/attractors/1.mov",
+        "reward": "Videos/rewards/1.mov"
       }
     ]
   },

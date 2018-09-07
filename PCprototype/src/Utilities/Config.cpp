@@ -26,9 +26,11 @@ void Config::load()
         {
             PCMessage("Config Manager", "[Success]: Ken Ken Pa Config Found");
             kkpdata.player1StartKey = c["kenkenpa"]["player1startkey"].asInt();
-            kkpdata.player1EndKey = c["kenkenpa"]["player1startkey"].asInt();
+            kkpdata.player1EndKey = c["kenkenpa"]["player1endkey"].asInt();
             kkpdata.player2StartKey = c["kenkenpa"]["player2startkey"].asInt();
             kkpdata.player2EndKey = c["kenkenpa"]["player2endkey"].asInt();
+            kkpdata.dualPlayersStartKey = c["kenkenpa"]["dualplayerstartkey"].asInt();
+            kkpdata.dualPlayersEndKey = c["kenkenpa"]["dualplayersendkey"].asInt();
             
             vector<KenKenPa> kkd;
             // Get the Versions
@@ -43,7 +45,7 @@ void Config::load()
                                 c["kenkenpa"]["versions"][i]["reward"].asString()));
             }
             
-            kkpdata.data = kkd;
+            kkpdata.versions = kkd;
         }
         else {
             PCMessage("Config Manager", "[Error]: No kenkenpa config found");
