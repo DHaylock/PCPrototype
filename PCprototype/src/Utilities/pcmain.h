@@ -78,4 +78,5 @@ struct KenKenPaData {
 
 #include "StateManager.h"
 #include "Config.h"
+#include "Stopwatch.h"
 
