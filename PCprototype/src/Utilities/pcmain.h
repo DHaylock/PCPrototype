@@ -61,7 +61,7 @@ struct KenKenPa {
 
 struct KenKenPaData {
     KenKenPaData() {}
-    KenKenPaData(char player1StartKey,char player1EndKey,char player2StartKey,char player2EndKey,vector<KenKenPa> data)
+    KenKenPaData(int player1StartKey,int player1EndKey,int player2StartKey,int player2EndKey,vector<KenKenPa> data)
     {
         this->player1StartKey = player1StartKey;
         this->player1EndKey = player1EndKey;
@@ -69,10 +69,10 @@ struct KenKenPaData {
         this->player2EndKey = player2EndKey;
         this->data = data;
     }
-    char player1StartKey;
-    char player1EndKey;
-    char player2StartKey;
-    char player2EndKey;
+    int player1StartKey;
+    int player1EndKey;
+    int player2StartKey;
+    int player2EndKey;
     vector<KenKenPa> data;
 };
 
