@@ -10,15 +10,7 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-#include "ofxThreadedImageLoader.h"
-
-enum class DISPLAY_MODE {
-    VIDEOS,
-    PICTURES,
-    TEXT,
-    INTERACTIVE,
-    DATA
-};
+#include "KenKenPaManager.h"
 
 class VisualManager {
   
@@ -29,13 +21,6 @@ class VisualManager {
          */
         //--------------------------------------------------------------
         void init();
-    
-        /**
-         Load the Files
-         */
-        //--------------------------------------------------------------
-        void loadVideos();
-        void loadImages();
     
         /**
          Update
@@ -51,12 +36,6 @@ class VisualManager {
         void draw();
     
         /**
-         Reloads the display folder
-         */
-        //--------------------------------------------------------------
-        void reloadContent();
-    
-        /**
          Key Press
 
          @param key key code
@@ -64,16 +43,9 @@ class VisualManager {
         //--------------------------------------------------------------
         void keyPress(ofKeyEventArgs &key);
     
+        KenKenPaManager kenkenpa;
+    
         ofParameterGroup parameters;
-        ofParameter<int> currentVideo;
-        ofParameter<int> currentImage;
-        ofParameter<bool> mode;
-    
-        vector<ofVideoPlayer> videos;
-    
-        ofxThreadedImageLoader loader;
-        vector<ofImage> images;
-        map<char,int> keymap;
 };
 
 #endif /* VisualManager_h */
