@@ -27,6 +27,7 @@ void ofApp::setup()
     bDrawGui = true;
     
     ofEnableAlphaBlending();
+    sw.setup("player 1");
 }
 
 //--------------------------------------------------------------
@@ -52,6 +53,8 @@ void ofApp::draw()
     ledProcessor.endCapture();
     ledProcessor.render();
     
+    ofDrawBitmapStringHighlight(sw.getFormattedTime(false), 10,10);
+    
     if(bDrawGui)
         drawGui();
 }
@@ -74,6 +77,12 @@ void ofApp::keyPressed(int key)
                 StateManager::instance().currentMode++;
             }
         }
+            break;
+        case 'a':
+            sw.start();
+            break;
+        case 'b':
+            sw.stop();
             break;
         default:
             break;

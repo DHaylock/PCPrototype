@@ -32,5 +32,6 @@ class ofApp : public ofBaseApp{
         void gotMessage(ofMessage msg);
         int logSize;
         deque <string> logs;
+        Stopwatch sw;
 };
 
