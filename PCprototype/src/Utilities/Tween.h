@@ -34,21 +34,22 @@ class Tween {
             
             this->tweenName = tweenName;
             this->id = id;
-            ofAddListener(ofEvents().update,this,&Tween::update);
+//            ofAddListener(ofEvents().update,this,&Tween::update);
         }
     
         /**
          Init Tween
          */
         //-----------------------------------------------------
-        void setup(int id, string tweenName)
+        void setup(int id,float duration, float fromValue, float toValue, string tweenName,float delay = 0.2f)
         {
-            fromValue = 0;
-            toValue = 0;
-            currentValue = 0;
-            
             this->tweenName = tweenName;
+            this->fromValue = fromValue;
+            this->duration = duration;
+            this->toValue = toValue;
+            this->delay = delay;
             this->id = id;
+            
             ofAddListener(ofEvents().update,this,&Tween::update);
         }
     
@@ -59,20 +60,13 @@ class Tween {
          @param value to which value
          */
         //-----------------------------------------------------
-        void triggerNewTween(float duration, float fromValue, float toValue,string tweenName = "",float delay = 0.0f) {
-            this->duration = duration;
+        void start() {
             
-            this->fromValue = fromValue;
-            this->toValue = toValue;
-            this->delay = delay;
-            
-            initTime = ofGetElapsedTimef() + delay;
+            initTime = ofGetElapsedTimef();
+            currentValue = fromValue;
             endTime = initTime + duration;
             notified = false;
             
-            if(tweenName != "") {
-                this->tweenName = tweenName;
-            }
             ofNotifyEvent(tweenStarted,tweenName,this);
         }
     
@@ -82,23 +76,38 @@ class Tween {
          @param evt listener
          */
         //-----------------------------------------------------
-        void update(ofEventArgs &evt)
+        void update(ofEventArgs &e)
         {
-            auto now = ofGetElapsedTimef();
-            
             if(!notified) {
+                auto now = ofGetElapsedTimef();
                 currentValue = ofxeasing::map_clamp(now,
                                                     initTime,
                                                     endTime,
                                                     fromValue,
                                                     toValue,
-                                                    &ofxeasing::linear::easeInOut);
+                                                    &ofxeasing::sine::easeInOut);
             }
             
-            if(currentValue == toValue && !notified) {
-                ofNotifyEvent(tweenEnd,tweenName,this);
-                notified = true;
+            if(fromValue > toValue)
+            {
+                if((currentValue <= toValue) && !notified)
+                {
+                    
+                    notified = true; // Set notify to true before this trtigger happends
+                    ofNotifyEvent(tweenEnd,tweenName,this);
+                }
             }
+            else if(fromValue < toValue)
+            {
+                if((currentValue >= toValue) && !notified)
+                {
+                    cout << fromValue << " " << currentValue << " " << toValue << endl;
+                    notified = true; // Set notify to true before this trtigger happends
+                    ofNotifyEvent(tweenEnd,tweenName,this);
+                }
+            }
+               
+            
         }
     
         /**
@@ -111,7 +120,6 @@ class Tween {
         {
             return currentValue;
         }
-    
     
         /**
          Has the Tween Finished
