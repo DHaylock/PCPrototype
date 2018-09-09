@@ -23,7 +23,7 @@ enum class KenKenState {
     Attractor,
     Kiosk,
     Ready,
-    Win,
+    Game,
     Reward
 };
 

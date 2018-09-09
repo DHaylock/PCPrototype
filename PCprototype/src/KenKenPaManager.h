@@ -47,10 +47,16 @@ public:
     void renderReadyState();
     
     /**
-     Render the Win State
+     Render the Game  State
      */
     //--------------------------------------------------------------
-    void renderWinState();
+    void renderGameState();
+    
+    /**
+     Render the End Game State
+     */
+    //--------------------------------------------------------------
+    void renderEndGameState();
     
     /**
      Key Pressed Event

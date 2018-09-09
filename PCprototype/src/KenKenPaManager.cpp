@@ -59,15 +59,14 @@ void KenKenPaManager::loadVersion(bool &val)
     
     attractorPlayer.loadAsync(data.versions[id].attractorFile);
     kioskPlayer.loadAsync(data.versions[id].kioskFile);
-    rewardPlayer.loadAsync(data.versions[id].rewardFile );
+    rewardPlayer.loadAsync(data.versions[id].rewardFile);
     bLoad = false;
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::update(ofEventArgs &e)
 {
-//    countDownTween.up
-    
+
 }
 
 //-------------------------------------------------------------
@@ -93,9 +92,9 @@ void KenKenPaManager::render()
             renderReadyState();
         }
             break;
-        case static_cast<int>(KenKenState::Win):
+        case static_cast<int>(KenKenState::Game):
         {
-            renderWinState();
+            renderGameState();
         }
             break;
         case static_cast<int>(KenKenState::Reward):
@@ -127,12 +126,17 @@ void KenKenPaManager::renderReadyState()
 }
 
 //-------------------------------------------------------------
-void KenKenPaManager::renderWinState()
+void KenKenPaManager::renderGameState()
 {
     timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
     timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-75);
     timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
     timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-75);
+}
+//-------------------------------------------------------------
+void KenKenPaManager::renderEndGameState()
+{
+
 }
 
 //-------------------------------------------------------------
@@ -186,7 +190,7 @@ void KenKenPaManager::countDownTweenEnded(string &val)
     cout << val << " Ended " << countDown << endl;
     if (countDown == 0)
     {
-        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Win);
+        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Game);
         player1Stopwatch.start();
         player2Stopwatch.start();
     }
