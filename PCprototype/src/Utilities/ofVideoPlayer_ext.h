@@ -76,7 +76,7 @@ class ofVideoPlayer_ext: public ofVideoPlayer {
         {
             this->update();
             
-            if(!this->isPlaying() && !notified) {
+            if((this->getPosition() > 0.95) && !notified) {
                 ofNotifyEvent(videoFinished,this->videoId,this);
                 notified = true;
             }
