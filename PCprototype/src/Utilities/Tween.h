@@ -101,7 +101,6 @@ class Tween {
             {
                 if((currentValue >= toValue) && !notified)
                 {
-                    cout << fromValue << " " << currentValue << " " << toValue << endl;
                     notified = true; // Set notify to true before this trtigger happends
                     ofNotifyEvent(tweenEnd,tweenName,this);
                 }
