@@ -20,7 +20,7 @@ void KenKenPaManager::init()
         PCMessage("KenKenPaManager", "[Error]: Big Font Not Loaded");
     }
     
-    if(!timerFont.load("Fonts/Trebuchet.ttf", 25))
+    if(!timerFont.load("Fonts/Trebuchet.ttf", 45))
     {
         PCMessage("KenKenPaManager", "[Error]: Timer Font Not Loaded");
     }
@@ -148,14 +148,14 @@ void KenKenPaManager::renderGameState()
     {
         case static_cast<int>(KenKenMode::OnePlayer): {
             timerFont.drawStringCentered("Player 1", ofGetWidth()/2, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-75);
+            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-50);
         }
             break;
         case static_cast<int>(KenKenMode::TwoPlayers): {
             timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-75);
+            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-50);
             timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-75);
+            timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-50);
         }
             break;
         default:
