@@ -52,8 +52,20 @@ public:
         return currentMode;
     }
     
+    /**
+     Returns the KenkenPa Mode
+     
+     @return mode
+     */
+    //-------------------------------------------------------------
+    int getKenKenPaMode()
+    {
+        return currentMode;
+    }
+    
     ofParameter <int> currentMode { "Mode", static_cast<int>(Mode::Debug) };
-    ofParameter <int> currentKenKenState { "KenKenState", static_cast<int>(KenKenState::Attractor) };
+    ofParameter <int> currentKenKenState { "Ken Ken State", static_cast<int>(KenKenState::Attractor) };
+    ofParameter <int> currentKenKenMode { "Ken Ken Mode", static_cast<int>(KenKenMode::OnePlayer) };
     
 private:
     vector <string> states;
