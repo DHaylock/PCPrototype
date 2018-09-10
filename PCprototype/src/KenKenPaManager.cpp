@@ -144,7 +144,7 @@ void KenKenPaManager::renderReadyState()
 //-------------------------------------------------------------
 void KenKenPaManager::renderGameState()
 {
-    switch(StateManager::instance().getKenKenPaMode())
+    switch(StateManager::instance().currentKenKenMode)
     {
         case static_cast<int>(KenKenMode::OnePlayer): {
             timerFont.drawStringCentered("Player 1", ofGetWidth()/2, ofGetHeight()-100);

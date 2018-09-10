@@ -109,10 +109,10 @@ class Stopwatch {
                 strftime(buffer, 8, "%M:%S", localtime(&curTime.tv_sec));
             else
                 strftime(buffer, 8, "%S", localtime(&curTime.tv_sec));
-            int milli = abs(curTime.tv_usec) / 1000;
+            unsigned int milli = curTime.tv_usec / 1000;
             
             char buffer2[12] = " ";
-            sprintf(buffer2, "%s.%d", buffer, milli);
+            sprintf(buffer2, "%s.%.3d", buffer, milli);
             return ofToString(buffer2);
         }
     
