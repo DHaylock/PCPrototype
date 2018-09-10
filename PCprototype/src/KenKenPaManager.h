@@ -74,6 +74,9 @@ public:
     //-------------------------------------------------------------
     void waitOutTimerStarted(string &val);
     void waitOutTimerFinished(string &val);
+    
+    void videoStarted(string &id);
+    void videoFinished(string &id);
 
     ofParameter <int> versionNo;
     ofParameter <bool> bLoad;
@@ -90,9 +93,9 @@ public:
     ofxCenteredTrueTypeFont bigFont;
     ofxCenteredTrueTypeFont timerFont;
     
-    ofVideoPlayer attractorPlayer;
-    ofVideoPlayer kioskPlayer;
-    ofVideoPlayer rewardPlayer;
+    ofVideoPlayer_ext attractorPlayer;
+    ofVideoPlayer_ext kioskPlayer;
+    ofVideoPlayer_ext rewardPlayer;
     
     Stopwatch player1Stopwatch;
     Stopwatch player2Stopwatch;
