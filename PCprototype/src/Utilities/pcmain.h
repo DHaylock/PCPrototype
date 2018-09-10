@@ -27,6 +27,11 @@ enum class KenKenState {
     Reward
 };
 
+enum class KenKenMode {
+    OnePlayer,
+    TwoPlayers
+};
+
 //-----------------------------------------------------
 /**
  Logging Message System
@@ -93,4 +98,4 @@ struct KenKenPaData {
 #include "StateManager.h"
 #include "Config.h"
 #include "Stopwatch.h"
-
+#include "ofVideoPlayer_ext.h"

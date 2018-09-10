@@ -118,7 +118,10 @@ void ofApp::drawGui()
             if(ofxImGui::BeginTree("KenKenPa", mainSetting))
             {
                 ofxImGui::AddGroup(visualManager.parameters,mainSetting);
+            
+                ofxImGui::AddRadio(StateManager::instance().currentKenKenMode,{"One Player","Two Player"});
                 ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Kiosk","Ready","Win","Reward"});
+                
                 ofxImGui::EndTree(mainSetting);
             }
             

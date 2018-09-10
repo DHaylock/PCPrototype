@@ -23,7 +23,6 @@
 		BB88D93F8C516CE8EEE25627 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A279821330EF86F29A9807DD /* jsoncpp.cpp */; };
 		BE8DC34241C1B9F7617DF2EF /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1038E5190A2B40EAEA06A6DC /* imgui_draw.cpp */; };
 		C845D857510D84F66B59AB67 /* LEDProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1C713CDCCA3C7DE582B5C /* LEDProcessor.cpp */; };
-		C887FB2F59E07DE2CAE3DFD0 /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CC67FA490728395428F0715 /* ofxThreadedImageLoader.cpp */; };
 		CD5C501454C8C3B6D50611F5 /* EngineGLFW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE07E6DC98347501A36E189 /* EngineGLFW.cpp */; };
 		D0F9EFF7AA4192FD125E906F /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E013B6A0883C4FD2FFCCF /* ofxJSONElement.cpp */; };
 		DBAB3DBA949ACFD41A6939FC /* ofxImGuiLoggerChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CD3187223A94E9CD6295DE6 /* ofxImGuiLoggerChannel.cpp */; };
@@ -76,9 +75,7 @@
 		3523924D83563D185D075F8A /* Gui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Gui.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxImGui/src/Gui.cpp; sourceTree = SOURCE_ROOT; };
 		42C0029E3DF5DD4D9CF86FFE /* VisualManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = VisualManager.h; path = src/VisualManager.h; sourceTree = SOURCE_ROOT; };
 		4703EDDE38B0349136C217C3 /* ofxEasing.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxEasing.h; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/ofxEasing.h; sourceTree = SOURCE_ROOT; };
-		4A01FEA3B5D878696727263F /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxThreadedImageLoader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxThreadedImageLoader/src/ofxThreadedImageLoader.h; sourceTree = SOURCE_ROOT; };
 		53F87F2318A1CB7011FC3235 /* imgui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = imgui.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxImGui/libs/imgui/src/imgui.cpp; sourceTree = SOURCE_ROOT; };
-		5CC67FA490728395428F0715 /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxThreadedImageLoader.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxThreadedImageLoader/src/ofxThreadedImageLoader.cpp; sourceTree = SOURCE_ROOT; };
 		5CEBDE0E5135F6926482DB47 /* Gui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Gui.h; path = ../../../of_v0.10.0_osx_release/addons/ofxImGui/src/Gui.h; sourceTree = SOURCE_ROOT; };
 		5FD6ECEE1FAC72874744540E /* imgui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = imgui.h; path = ../../../of_v0.10.0_osx_release/addons/ofxImGui/libs/imgui/src/imgui.h; sourceTree = SOURCE_ROOT; };
 		6744F4491322B9D864D8537D /* BaseTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = BaseTheme.h; path = ../../../of_v0.10.0_osx_release/addons/ofxImGui/src/BaseTheme.h; sourceTree = SOURCE_ROOT; };
@@ -93,6 +90,7 @@
 		6A50FCF62142928F0032886F /* KenKenPaManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KenKenPaManager.cpp; sourceTree = "<group>"; };
 		6A50FCF72142928F0032886F /* KenKenPaManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KenKenPaManager.h; sourceTree = "<group>"; };
 		6A50FCF92142C1AD0032886F /* ofxCenteredTrueTypeFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCenteredTrueTypeFont.h; sourceTree = "<group>"; };
+		6ACF633B21467DEA007F8801 /* ofVideoPlayer_ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofVideoPlayer_ext.h; sourceTree = "<group>"; };
 		720F75E782F7CF1D3D8FA2C8 /* easing_terms_of_use.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = easing_terms_of_use.html; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/easing_terms_of_use.html; sourceTree = SOURCE_ROOT; };
 		737773FE8143611BD60D8AB3 /* ofxAutoReloadedShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAutoReloadedShader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.h; sourceTree = SOURCE_ROOT; };
 		7C4BC837B3FB023D82B5168F /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxAutoReloadedShader.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
@@ -183,14 +181,6 @@
 			name = ofxAutoReloadedShader;
 			sourceTree = "<group>";
 		};
-		3CD2B0AEE6FE628A91175CDA /* ofxThreadedImageLoader */ = {
-			isa = PBXGroup;
-			children = (
-				F7347CBF7C47F1110E5FA42A /* src */,
-			);
-			name = ofxThreadedImageLoader;
-			sourceTree = "<group>";
-		};
 		58AD3BD71B781D9BC25763C8 /* json */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +208,7 @@
 				6A50FCED214161560032886F /* Timer.cpp */,
 				6A50FCF52142785A0032886F /* Stopwatch.h */,
 				6A50FCEE214161560032886F /* Timer.h */,
+				6ACF633B21467DEA007F8801 /* ofVideoPlayer_ext.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -296,7 +287,6 @@
 				0D0595A62FF5ED8D37029107 /* ofxEasing */,
 				768C3255AF2F3E1A78DC4DF4 /* ofxImGui */,
 				2865DAEF86B1907A704CA70B /* ofxJSON */,
-				3CD2B0AEE6FE628A91175CDA /* ofxThreadedImageLoader */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -388,15 +378,6 @@
 				977A836DD2C489CCC5E330FF /* jsoncpp */,
 			);
 			name = libs;
-			sourceTree = "<group>";
-		};
-		F7347CBF7C47F1110E5FA42A /* src */ = {
-			isa = PBXGroup;
-			children = (
-				4A01FEA3B5D878696727263F /* ofxThreadedImageLoader.h */,
-				5CC67FA490728395428F0715 /* ofxThreadedImageLoader.cpp */,
-			);
-			name = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,7 +503,6 @@
 				D0F9EFF7AA4192FD125E906F /* ofxJSONElement.cpp in Sources */,
 				6A50FCF4214172040032886F /* Config.cpp in Sources */,
 				BB88D93F8C516CE8EEE25627 /* jsoncpp.cpp in Sources */,
-				C887FB2F59E07DE2CAE3DFD0 /* ofxThreadedImageLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
