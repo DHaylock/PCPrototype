@@ -4,9 +4,22 @@ ifneq ($(wildcard config.make),)
 	include config.make
 endif
 
-# make sure the the OF_ROOT location is defined
-ifndef OF_ROOT
-	OF_ROOT=$(realpath ../../../of_v0.10.0_osx_release/of_v0.10.0_osx_release/of_v0.10.0_osx_release/of_v0.10.0_osx_release/of_v0.10.0_osx_release)
+
+ifneq ($(wildcard config.make),)
+	include config.make
+endif
+
+UNAME_P := $(shell uname -p)
+ifeq ($(filter arm%,$(UNAME_P)),)
+        # make sure the the OF_ROOT location is defined
+        ifndef OF_ROOT
+                OF_ROOT=$(realpath ../../..)
+        endif
+else
+        # make sure the the OF_ROOT location is defined
+        ifndef OF_ROOT
+                OF_ROOT=$(realpath ../../../of_v0.10.0_osx_release/of_v0.10.0_osx_release)
+        endif
 endif
 
 # call the project makefile!
