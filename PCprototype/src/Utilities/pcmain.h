@@ -98,4 +98,5 @@ struct KenKenPaData {
 #include "StateManager.h"
 #include "Config.h"
 #include "Stopwatch.h"
+#include "Timer.h"
 #include "ofVideoPlayer_ext.h"
