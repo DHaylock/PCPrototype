@@ -1,6 +1,6 @@
 {
   "shader": {
-    "active": true,
+    "active": false,
     "amount": 10,
     "colour": {
       "r": 255,
@@ -19,8 +19,8 @@
     "versions": [
       {
         "id": 0,
-        "waitouttimer": 5000,
-        "attractortimer": 60000,
+        "waitouttimer": 1500,
+        "attractortimer": 2000,
         "name": "Default",
         "attractor": "Videos/attractors/1.mov",
         "kiosk": "Videos/kiosks/1.mov",
@@ -28,8 +28,8 @@
       },
       {
         "id": 1,
-        "waitouttimer": 5000,
-        "attractortimer": 60000,
+        "waitouttimer": 1500,
+        "attractortimer": 2000,
         "name": "Default 2",
         "attractor": "Videos/kiosks/1.mov",
         "kiosk": "Videos/attractors/1.mov",
