@@ -10,6 +10,7 @@
 #define Stopwatch_h
 
 #include <sys/time.h>
+#include <chrono>
 #include "pcmain.h"
 
 class Stopwatch {
@@ -23,7 +24,6 @@ class Stopwatch {
         {
             name = "Default";
             bIsRunning = false;
-            ofAddListener(ofEvents().update,this,&Stopwatch::update);
         }
     
         /**
@@ -32,7 +32,7 @@ class Stopwatch {
         //-----------------------------------------------------
         ~Stopwatch()
         {
-            ofRemoveListener(ofEvents().update,this,&Stopwatch::update);
+    
         }
     
         /**
@@ -43,7 +43,6 @@ class Stopwatch {
         {
             this->name = name;
             bIsRunning = false;
-            ofAddListener(ofEvents().update,this,&Stopwatch::update);
         }
     
         /**
@@ -54,7 +53,7 @@ class Stopwatch {
         {
             this->name = name;
             bIsRunning = false;
-            ofAddListener(ofEvents().update,this,&Stopwatch::update);
+            startTime = clock::now();
         }
     
         /**
@@ -63,7 +62,7 @@ class Stopwatch {
         //-----------------------------------------------------
         void start()
         {
-            gettimeofday(&startTime, NULL);
+            startTime = clock::now();
             bIsRunning = true;
         }
     
@@ -73,27 +72,66 @@ class Stopwatch {
         //-----------------------------------------------------
         void stop()
         {
-            gettimeofday(&endTime, NULL);
+            endTime = clock::now();
             bIsRunning = false;
         }
     
         /**
-         Event Listener for the Update
+         Get The Elapsed Time in Microseconds
 
-         @param e args
+         @return time
          */
         //-----------------------------------------------------
-        void update(ofEventArgs &e)
+        u_int64_t getElapsedUs() const
         {
-            if(bIsRunning)
-            {
-                timeval cuTime;
-                gettimeofday(&cuTime,NULL);
-                curTime.tv_sec = cuTime.tv_sec - startTime.tv_sec;
-                curTime.tv_usec = cuTime.tv_usec - startTime.tv_usec;
-            }
+            return std::chrono::duration_cast<microseconds>(clock::now() - startTime).count();
         }
+    
+        /**
+         Get the Elapsed Time In Milliseconds
 
+         @return time
+         */
+        //-----------------------------------------------------
+        u_int64_t getElapsedMs() const
+        {
+           return std::chrono::duration_cast<milliseconds>(clock::now() - startTime).count();
+        }
+    
+        /**
+         Get the Elapsed Time in Seconds
+
+         @return time
+         */
+        //-----------------------------------------------------
+        uint64_t getElapsedSec() const
+        {
+            return std::chrono::duration_cast<seconds>(clock::now() - startTime).count();
+        }
+    
+        /**
+         Is the Stop Watch Running
+
+         @return boolean
+         */
+        //-----------------------------------------------------
+        bool isRunning()
+        {
+            return bIsRunning;
+        }
+    
+        /**
+         Get the Elapsed Time
+
+         @return time
+         */
+        //-----------------------------------------------------
+        double getElapsedTimef()
+        {
+            std::chrono::duration<double> elapsedTime = endTime - startTime;
+            return elapsedTime.count();
+        }
+    
         /**
          Get the Formatted Time
 
@@ -103,28 +141,36 @@ class Stopwatch {
         //-----------------------------------------------------
         string getFormattedTime(bool bMins)
         {
-            char buffer[8];
-            
-            if(bMins)
-                strftime(buffer, 8, "%M:%S", localtime(&curTime.tv_sec));
-            else
-                strftime(buffer, 8, "%S", localtime(&curTime.tv_sec));
-            unsigned int milli = curTime.tv_usec / 1000;
-            
-            char buffer2[12] = " ";
-            sprintf(buffer2, "%s.%.3d", buffer, milli);
-            return ofToString(buffer2);
+            if(bIsRunning) {
+                char buffer2[12] = " ";
+                std::chrono::duration<double> elapsedTime = clock::now() - startTime;
+                
+                sprintf(buffer2, "%.3f", elapsedTime.count());
+                return ofToString(buffer2);
+            }
+            else if (!bIsRunning)
+            {
+                std::chrono::duration<double> elapsedTime = endTime - startTime;
+                char buffer2[12] = " ";
+                sprintf(buffer2, "%.3f",elapsedTime);
+                return ofToString(buffer2);
+            }
+            return "";
         }
     
     private:
-        timeval curTime;
-        timeval startTime;
-        timeval endTime;
+    
+        typedef std::chrono::steady_clock clock;
+        typedef std::chrono::microseconds microseconds;
+        typedef std::chrono::milliseconds milliseconds;
+        typedef std::chrono::seconds seconds;
+    
+        std::chrono::steady_clock::time_point Restart();
+    
+        clock::time_point startTime;
+        clock::time_point endTime;
     
         string name;
-//        float startTime = 0;
-//        float endTime = 0;
-//        float currentTime = 0;
         bool bIsRunning = false;
 };
 
