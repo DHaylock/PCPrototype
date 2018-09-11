@@ -27,7 +27,6 @@ void ofApp::setup()
     bDrawGui = true;
     
     ofEnableAlphaBlending();
-    sw.setup("player 1");
 }
 
 //--------------------------------------------------------------
@@ -53,8 +52,6 @@ void ofApp::draw()
     ledProcessor.endCapture();
     ledProcessor.render();
     
-    ofDrawBitmapStringHighlight(sw.getFormattedTime(false), 10,10);
-    
     if(bDrawGui)
         drawGui();
 }
@@ -78,12 +75,6 @@ void ofApp::keyPressed(int key)
             }
         }
             break;
-        case 'a':
-            sw.start();
-            break;
-        case 'b':
-            sw.stop();
-            break;
         default:
             break;
     }
@@ -99,7 +90,8 @@ void ofApp::keyReleased(int key)
 void ofApp::drawGui()
 {
     auto mainSetting = ofxImGui::Settings();
-    mainSetting.windowPos = ofVec2f(10,0);
+    mainSetting.windowPos = ofVec2f(5,5);
+    mainSetting.lockPosition = true;
     
     gui.begin();
     {
@@ -125,37 +117,34 @@ void ofApp::drawGui()
                 ofxImGui::EndTree(mainSetting);
             }
             
-            
-        }
-        ofxImGui::EndWindow(mainSetting);
-        
-        mainSetting.windowPos = ofVec2f(300,0);
-        // Log Window
-        if(ofxImGui::BeginWindow("Logs", mainSetting,false))
-        {
-            ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
-            if (ImGui::SmallButton("Clear"))
+            // Log Window
+            if(ofxImGui::BeginTree("Logs", mainSetting))
             {
-                logs.clear();
-            }
-            ImGui::SliderInt("History Length", &logSize, 2, 100);
-            
-            ImGui::BeginChild("Scrolling",ImVec2(400, 250));
-            for (int i = 0; i < logs.size(); i++)
-            {
-                ImVec4 c(1, 1, 1, 1);
-                if(ofIsStringInString(logs[i],"[Error]"))
+                ImGui::TextColored(ImVec4(1, 1, 0, 1), "Logs");
+                if (ImGui::SmallButton("Clear"))
                 {
-                    c = ImVec4(1, 0, 0, 1);
+                    logs.clear();
                 }
-                else if(ofIsStringInString(logs[i],"[Success]"))
+                ImGui::SliderInt("History Length", &logSize, 2, 100);
+                
+                ImGui::BeginChild("Scrolling",ImVec2(400, 250));
+                for (int i = 0; i < logs.size(); i++)
                 {
-                    c = ImVec4(0, 1, 0, 1);
+                    ImVec4 c(1, 1, 1, 1);
+                    if(ofIsStringInString(logs[i],"[Error]"))
+                    {
+                        c = ImVec4(1, 0, 0, 1);
+                    }
+                    else if(ofIsStringInString(logs[i],"[Success]"))
+                    {
+                        c = ImVec4(0, 1, 0, 1);
+                    }
+                    
+                    ImGui::TextColored(c,"%s", logs[i].c_str());
                 }
-
-                ImGui::TextColored(c,"%s", logs[i].c_str());
+                ImGui::EndChild();
+                ofxImGui::EndTree(mainSetting);
             }
-            ImGui::EndChild();
         }
         ofxImGui::EndWindow(mainSetting);
     }
