@@ -43,7 +43,6 @@ class LEDProcessor {
         ofParameter<bool> active;
         ofParameter<bool> pixelate;
         ofParameter<int> pixelSize;
-        ofParameter<float> vignetteAmount;
         ofParameter<ofFloatColor> tintColor;
     
     private:

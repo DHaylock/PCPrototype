@@ -8,7 +8,6 @@ uniform vec4 tintColor;
 
 uniform vec2 resolution;
 uniform float pixelSize;
-uniform float vignetteAmount;
 uniform bool pixelate;
 
 void main(void)

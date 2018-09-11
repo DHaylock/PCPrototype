@@ -95,7 +95,7 @@ void ofApp::drawGui()
     
     gui.begin();
     {
-        if (ofxImGui::BeginWindow("pcprototype", mainSetting,true))
+        if (ofxImGui::BeginWindow("pcprototype", mainSetting,false))
         {
             ImGui::Text("%.1f FPS (%.3f ms/frame)", ofGetFrameRate(), 1000.0f / ImGui::GetIO().Framerate);
             
@@ -106,6 +106,13 @@ void ofApp::drawGui()
             }
             
             ofxImGui::AddGroup(ledProcessor.parameters, mainSetting);
+            
+            if(ofxImGui::BeginTree("Effects", mainSetting))
+            {
+                ofxImGui::AddRadio(StateManager::instance().currentEffect,{ "Mouse", "SpinningDots", "SpinningLines", "Noise", "Waves", "BlockColor", "FadeToWhite", "RotatingCircles", "Gradient"});
+                
+                ofxImGui::EndTree(mainSetting);
+            }
             
             if(ofxImGui::BeginTree("KenKenPa", mainSetting))
             {
@@ -138,6 +145,10 @@ void ofApp::drawGui()
                     else if(ofIsStringInString(logs[i],"[Success]"))
                     {
                         c = ImVec4(0, 1, 0, 1);
+                    }
+                    else if(ofIsStringInString(logs[i],"[Status]"))
+                    {
+                        c = ImVec4(0, 0.5, 1, 1);
                     }
                     
                     ImGui::TextColored(c,"%s", logs[i].c_str());

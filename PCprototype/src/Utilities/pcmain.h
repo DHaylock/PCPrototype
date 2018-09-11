@@ -13,6 +13,19 @@
 #include "Tween.h"
 #include "ofxCenteredTrueTypeFont.h"
 
+enum class Effects
+{
+    Mouse,
+    SpinningDots,
+    SpinningLines,
+    Noise,
+    Waves,
+    BlockColor,
+    FadeToWhite,
+    RotatingCircles,
+    Gradient
+};
+
 enum class Mode {
     Debug,
     KenKenPa,
@@ -95,8 +108,37 @@ struct KenKenPaData {
     vector<KenKenPa> versions;
 };
 
+//struct PhysicalToyCombo
+//{
+//    PhysicalToyCombo() {}
+//    PhysicalToyCombo()
+//    {
+//
+//    }
+//
+//    vector<int> btns;
+//}
+
+//struct PhysicalToyData
+//{
+//    PhysicalToyData() {}
+//    PhysicalToyData(int btn1Key,int btn2key,int btn3key,int btn4key)
+//    {
+//        this->btn1key = btn1key;
+//        this->btn2key = btn2key;
+//        this->btn3key = btn3key;
+//        this->btn4key = btn4key;
+//    }
+//    
+//    int btn1Key;
+//    int btn2key;
+//    int btn3key;
+//    int btn4key;
+//};
+
 #include "StateManager.h"
 #include "Config.h"
 #include "Stopwatch.h"
 #include "Timer.h"
 #include "ofVideoPlayer_ext.h"
+#include "DebugEffects.h"

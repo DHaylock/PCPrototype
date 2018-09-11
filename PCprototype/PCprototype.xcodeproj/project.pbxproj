@@ -91,6 +91,7 @@
 		6A50FCF72142928F0032886F /* KenKenPaManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KenKenPaManager.h; sourceTree = "<group>"; };
 		6A50FCF92142C1AD0032886F /* ofxCenteredTrueTypeFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCenteredTrueTypeFont.h; sourceTree = "<group>"; };
 		6ACF633B21467DEA007F8801 /* ofVideoPlayer_ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofVideoPlayer_ext.h; sourceTree = "<group>"; };
+		6ACF633D2147EF37007F8801 /* DebugEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugEffects.h; sourceTree = "<group>"; };
 		720F75E782F7CF1D3D8FA2C8 /* easing_terms_of_use.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = easing_terms_of_use.html; path = ../../../of_v0.10.0_osx_release/addons/ofxEasing/src/easing_terms_of_use.html; sourceTree = SOURCE_ROOT; };
 		737773FE8143611BD60D8AB3 /* ofxAutoReloadedShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAutoReloadedShader.h; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.h; sourceTree = SOURCE_ROOT; };
 		7C4BC837B3FB023D82B5168F /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxAutoReloadedShader.cpp; path = ../../../of_v0.10.0_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
@@ -209,6 +210,7 @@
 				6A50FCF52142785A0032886F /* Stopwatch.h */,
 				6A50FCEE214161560032886F /* Timer.h */,
 				6ACF633B21467DEA007F8801 /* ofVideoPlayer_ext.h */,
+				6ACF633D2147EF37007F8801 /* DebugEffects.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -343,11 +345,11 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				6A50FCF62142928F0032886F /* KenKenPaManager.cpp */,
-				6A50FCF72142928F0032886F /* KenKenPaManager.h */,
 				CD13A52FD81E480DFA32FDE9 /* VisualManager.cpp */,
 				0DC1C713CDCCA3C7DE582B5C /* LEDProcessor.cpp */,
 				187F4D5A80A21A438D3A0CF8 /* LEDProcessor.h */,
 				42C0029E3DF5DD4D9CF86FFE /* VisualManager.h */,
+				6A50FCF72142928F0032886F /* KenKenPaManager.h */,
 				6A50FCEB214160330032886F /* StateManager.h */,
 				6A50FCF02141615F0032886F /* Utilities */,
 			);

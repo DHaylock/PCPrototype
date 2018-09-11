@@ -11,7 +11,7 @@
 //-------------------------------------------------------------
 void KenKenPaManager::init()
 {
-    ofAddListener(ofEvents().update, this, &KenKenPaManager::update);
+    
     ofAddListener(ofEvents().keyPressed, this, &KenKenPaManager::keyPressed);
     PCMessage("KenKenPaManager", "[Success]: Ken Ken Pa Initialized");
  
@@ -96,12 +96,6 @@ void KenKenPaManager::loadVersion(bool &val)
     
     // Auto Run the Attractor
     attractorPlayer.playVideo();
-}
-
-//-------------------------------------------------------------
-void KenKenPaManager::update(ofEventArgs &e)
-{
-
 }
 
 //-------------------------------------------------------------
@@ -200,18 +194,36 @@ void KenKenPaManager::renderGameState()
 //-------------------------------------------------------------
 void KenKenPaManager::renderRewardGameState()
 {
+    ofSetColor(255, 255, 255);
     rewardPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
-    string whowins = "Here";
-    if(player1Stopwatch.getElapsedTimef() < player2Stopwatch.getElapsedTimef())
+    string status = "Here";
+    
+    switch (StateManager::instance().currentKenKenMode)
     {
-        whowins = "Player 1 Wins";
+        case static_cast<int>(KenKenMode::OnePlayer):
+        {
+            status = "Player Time " + ofToString(player1Stopwatch.getElapsedTimef());
+        }
+            break;
+        case static_cast<int>(KenKenMode::TwoPlayers):
+        {
+            if(player1Stopwatch.getElapsedTimef() < player2Stopwatch.getElapsedTimef())
+            {
+                status = "Player 1 Wins";
+            }
+            else if(player1Stopwatch.getElapsedTimef() > player2Stopwatch.getElapsedTimef())
+            {
+                status = "Player 2 Wins";
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
-    else if(player1Stopwatch.getElapsedTimef() > player2Stopwatch.getElapsedTimef())
-    {
-        whowins = "Player 2 Wins";
-    }
+
     ofSetColor(255,255,255);
-    timerFont.drawStringCentered(whowins, ofGetWidth()/2, ofGetHeight()-100);
+    timerFont.drawStringCentered(status, ofGetWidth()/2, ofGetHeight()-100);
 }
 
 //-------------------------------------------------------------

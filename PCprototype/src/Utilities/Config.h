@@ -39,7 +39,6 @@ class Config {
         //--------------------------------------------------------------
         void load();
     
-    
         /**
          Return the Data for the Ken Ken Pa
 
