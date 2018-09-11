@@ -31,7 +31,31 @@ void VisualManager::draw()
     {
         case static_cast<int>(Mode::Debug):
         {
-            
+            ofPushStyle();
+            ofEnableBlendMode(OF_BLENDMODE_ADD);
+            float rotationAmount = ofGetElapsedTimeMillis()/10;
+            float circ1Size = 40 + 40 * abs(sin(ofGetElapsedTimef()));
+            float circ2Size = 40 + 40 * abs(cos(ofGetElapsedTimef()));
+            ofSetColor(255, 0, 0);
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+            ofRotateZ(rotationAmount);
+            ofPushMatrix();
+            ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
+            ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2-circ1Size, circ1Size);
+            ofPopMatrix();
+            ofPopMatrix();
+            ofSetColor(0, 0, 255);
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+            ofRotateZ(-rotationAmount);
+            ofPushMatrix();
+            ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
+            ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2+circ2Size, circ2Size);
+            ofPopMatrix();
+            ofPopMatrix();
+            ofDisableBlendMode();
+            ofPopStyle();
         }
             break;
         case static_cast<int>(Mode::KenKenPa):
