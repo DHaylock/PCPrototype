@@ -56,7 +56,7 @@ public:
      Render the End Game State
      */
     //--------------------------------------------------------------
-    void renderEndGameState();
+    void renderRewardGameState();
     
     /**
      Key Pressed Event
@@ -65,6 +65,9 @@ public:
      */
     //--------------------------------------------------------------
     void keyPressed(ofKeyEventArgs &key);
+    
+    Timer waitOutTimer;
+    Timer attractorTimer;
     
     // Timer Listeners
     //-------------------------------------------------------------

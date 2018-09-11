@@ -20,7 +20,7 @@ void KenKenPaManager::init()
         PCMessage("KenKenPaManager", "[Error]: Big Font Not Loaded");
     }
     
-    if(!timerFont.load("Fonts/Trebuchet.ttf", 45))
+    if(!timerFont.load("Fonts/Trebuchet.ttf", 60))
     {
         PCMessage("KenKenPaManager", "[Error]: Timer Font Not Loaded");
     }
@@ -78,6 +78,22 @@ void KenKenPaManager::loadVersion(bool &val)
     rewardPlayer.setLoopState(OF_LOOP_NONE);
     bLoad = false;
     
+    ofRemoveListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
+    ofRemoveListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
+    
+    waitOutTimer.setup(data.versions[id].waitOutTimer, "Wait Out", false);
+    
+    ofAddListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
+    ofAddListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
+    
+    ofRemoveListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
+    ofRemoveListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
+    
+    attractorTimer.setup(data.versions[id].attractorTimer, "Attractor", false);
+    
+    ofAddListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
+    ofAddListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
+    
     // Auto Run the Attractor
     attractorPlayer.playVideo();
 }
@@ -117,7 +133,7 @@ void KenKenPaManager::render()
             break;
         case static_cast<int>(KenKenState::Reward):
         {
-            rewardPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
+            renderRewardGameState();
         }
             break;
         default:
@@ -144,18 +160,35 @@ void KenKenPaManager::renderReadyState()
 //-------------------------------------------------------------
 void KenKenPaManager::renderGameState()
 {
+    
     switch(StateManager::instance().currentKenKenMode)
     {
-        case static_cast<int>(KenKenMode::OnePlayer): {
-            timerFont.drawStringCentered("Player 1", ofGetWidth()/2, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-50);
+        case static_cast<int>(KenKenMode::OnePlayer):
+        {
+            if(player1Stopwatch.isRunning())
+            {
+                timerFont.drawStringCentered("Player", ofGetWidth()/2, ofGetHeight()-100);
+                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-30);
+            }
+            else
+            {
+                timerFont.drawStringCentered("Calculating", ofGetWidth()/2, ofGetHeight()-100);
+            }
         }
             break;
-        case static_cast<int>(KenKenMode::TwoPlayers): {
-            timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-50);
-            timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
-            timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-50);
+        case static_cast<int>(KenKenMode::TwoPlayers):
+        {
+            if(player1Stopwatch.isRunning() || player2Stopwatch.isRunning())
+            {
+                timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
+                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-30);
+                timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
+                timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-30);
+            }
+            else
+            {
+                timerFont.drawStringCentered("Calculating", ofGetWidth()/2, ofGetHeight()-100);
+            }
         }
             break;
         default:
@@ -165,9 +198,20 @@ void KenKenPaManager::renderGameState()
     
 }
 //-------------------------------------------------------------
-void KenKenPaManager::renderEndGameState()
+void KenKenPaManager::renderRewardGameState()
 {
-
+    rewardPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
+    string whowins = "Here";
+    if(player1Stopwatch.getElapsedTimef() < player2Stopwatch.getElapsedTimef())
+    {
+        whowins = "Player 1 Wins";
+    }
+    else if(player1Stopwatch.getElapsedTimef() > player2Stopwatch.getElapsedTimef())
+    {
+        whowins = "Player 2 Wins";
+    }
+    ofSetColor(255,255,255);
+    timerFont.drawStringCentered(whowins, ofGetWidth()/2, ofGetHeight()-100);
 }
 
 //-------------------------------------------------------------
@@ -199,37 +243,81 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
     
     if(key.key == data.player1EndKey)
     {
-        player1Stopwatch.stop();
+        // If it's one player stop the clock and trigger the wait out timer
+        if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::OnePlayer))
+        {
+            // Stop the clock
+            player1Stopwatch.stop();
+            waitOutTimer.start();
+        }
+        else if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
+        {
+            // If two player
+            // Check if player two's stopwatch is running.
+            // If it is stop player ones and wait
+            if(player2Stopwatch.isRunning())
+            {
+                player1Stopwatch.stop();
+            }
+            else
+            {
+                // Other wise stop player 1s and start the wait out timer.
+                player1Stopwatch.stop();
+                waitOutTimer.start();
+            }
+        }
+    
     }
     
     if(key.key == data.player2EndKey)
     {
-        player2Stopwatch.stop();
+        if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
+        {
+            // If two player
+            // Check if player two's stopwatch is running.
+            // If it is stop player ones and wait
+            if(player1Stopwatch.isRunning())
+            {
+                player2Stopwatch.stop();
+            }
+            else
+            {
+                // Other wise stop player 1s and start the wait out timer.
+                player2Stopwatch.stop();
+                waitOutTimer.start();
+            }
+        }
     }
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::attractorTimerStarted(string &val)
 {
-    
+    cout << "Attractor Timer Started" << endl;
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::attractorTimerFinished(string &val)
 {
-    
+    cout << "Attractor Timer Finished" << endl;
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Attractor);
+    attractorPlayer.playVideo();
+    PCMessage("Ken Ken Manager", "[Status]: Starting Attractor");
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::waitOutTimerStarted(string &val)
 {
-    
+    cout << "Wait Out Timer Started" << endl;
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::waitOutTimerFinished(string &val)
 {
-    
+    cout << "Wait Out Timer Finished" << endl;
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Reward);
+    rewardPlayer.playVideo();
+    PCMessage("Ken Ken Manager", "[Status]: Starting Reward");
 }
 
 //-------------------------------------------------------------
@@ -249,6 +337,10 @@ void KenKenPaManager::videoFinished(string &id)
         countDown = 3;
         countDownTween.start();
     }
+    else if (id == "Reward")
+    {
+        attractorTimer.start();
+    }
 }
 
 //-------------------------------------------------------------
@@ -260,20 +352,22 @@ void KenKenPaManager::countDownTweenStarted(string &val)
 //-------------------------------------------------------------
 void KenKenPaManager::countDownTweenEnded(string &val)
 {
-    cout << val << " Ended " << countDown << endl;
     if (countDown == 0)
     {
         StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Game);
+        PCMessage("Ken Ken Manager", "[Status]: Starting Game Mode");
         
         if(StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::OnePlayer))
         {
             player1Stopwatch.start();
+            PCMessage("Ken Ken Manager", "[Status]: Starting One Player Mode");
         }
         
         if(StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
         {
             player1Stopwatch.start();
             player2Stopwatch.start();
+            PCMessage("Ken Ken Manager", "[Status]: Starting Two Player Mode");
         }
     }
     else
