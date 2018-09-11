@@ -9,18 +9,17 @@ uniform vec4 tintColor;
 uniform vec2 resolution;
 uniform float pixelSize;
 uniform float vignetteAmount;
+uniform bool pixelate;
 
 void main(void)
 {
-	// Pixelate the UV coords
-	//vec2 pixelatedUVs = vec2(floor(textureCoords / pixelSize) * pixelSize);
-
 	// Get the Texture Coordinates
-	vec2 pixelatedUVs = textureCoords;
+	vec2 uv = textureCoords;
 
-	// Get the Pixelated UV's
-	pixelatedUVs -= mod(pixelatedUVs,pixelSize);
+    // Get the Pixelated UV's
+    if(pixelate)
+        uv -= mod(uv,pixelSize);
 
 	// Output the Texture Color with the Tint Color
-    outputColor = texture(tex0, pixelatedUVs) * tintColor;
+    outputColor = texture(tex0, uv) * tintColor;
 }

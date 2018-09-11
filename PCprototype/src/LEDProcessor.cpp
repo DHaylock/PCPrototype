@@ -52,7 +52,8 @@ void LEDProcessor::init()
     PCMessage("LEDProcessor", ss.c_str());
     
     parameters.setName("LED Simulator");
-    parameters.add(active.set("Shader Active", true));
+    parameters.add(active.set("Shader Active", false));
+    parameters.add(pixelate.set("Pixelate", false));
     parameters.add(pixelSize.set("Pixel Size", 15, 2, 75));
     parameters.add(tintColor.set(ofColor::white));
 }
@@ -76,6 +77,7 @@ void LEDProcessor::render()
     if(active) {
         shaderBuffer.getTexture().bind();
         shader.begin();
+        shader.setUniform1f("pixelate", pixelate);
         shader.setUniform1f("pixelSize", pixelSize);
         shader.setUniform2f("resolution", ofVec2f(ofGetWidth(), ofGetHeight()));
         shader.setUniform4f("tintColor", tintColor);
