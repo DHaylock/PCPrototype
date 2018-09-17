@@ -63,7 +63,7 @@ public:
         return currentMode;
     }
     
-    ofParameter <int> currentMode { "Mode", static_cast<int>(Mode::Debug) };
+    ofParameter <int> currentMode { "Mode", static_cast<int>(Mode::KenKenPa) };
     ofParameter <int> currentKenKenState { "Ken Ken State", static_cast<int>(KenKenState::Attractor) };
     ofParameter <int> currentKenKenMode { "Ken Ken Mode", static_cast<int>(KenKenMode::OnePlayer) };
     ofParameter <int> currentEffect { "Debug Effect", static_cast<int>(Effects::Mouse) };

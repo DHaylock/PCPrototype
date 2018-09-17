@@ -9,9 +9,7 @@ void ofApp::setup()
     gui.setup();
 
 #ifndef TARGET_RASPBERRY_PI
-//    ofSetDataPathRoot("../Resources/data/");
-#else
-
+    ofSetDataPathRoot("../Resources/data/");
 #endif
 
     // Load the Configuration
@@ -109,7 +107,7 @@ void ofApp::drawGui()
             
             if(ofxImGui::BeginTree("Effects", mainSetting))
             {
-                ofxImGui::AddRadio(StateManager::instance().currentEffect,{ "Mouse", "SpinningDots", "SpinningLines", "Noise", "Waves", "BlockColor", "FadeToWhite", "RotatingCircles", "Gradient"});
+                ofxImGui::AddRadio(StateManager::instance().currentEffect,{ "Mouse", "SpinningDots", "SpinningLines","Fountain", "BlockColor", "FadeToWhite", "RotatingCircles"});
                 
                 ofxImGui::EndTree(mainSetting);
             }
@@ -119,7 +117,7 @@ void ofApp::drawGui()
                 ofxImGui::AddGroup(visualManager.parameters,mainSetting);
             
                 ofxImGui::AddRadio(StateManager::instance().currentKenKenMode,{"One Player","Two Player"});
-                ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Kiosk","Ready","Win","Reward"});
+                ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Explainer","Ready","Win","Reward"});
                 
                 ofxImGui::EndTree(mainSetting);
             }
