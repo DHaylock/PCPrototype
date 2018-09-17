@@ -11,51 +11,34 @@
 
 #include "pcmain.h"
 
-class Ring {
+class Particle
+{
 public:
+    Particle() {}
     
-    Ring() {}
-    ~Ring() {}
-    
-    void respawn(int stageHeight,float x1,float y1,float x2,float y2) {
-        
-        _stageHeight = stageHeight;
-        // Start at the newer mouse position
-        x = x2;
-        y = y2;
-        
-        // Intensity is just the distance between mouse points
-        intensity = ofDist(x1, y1, x2, y2);
-        intensity = intensity * 5;
-        
-        // Hue is the angle of mouse movement, scaled from -PI..PI to 0..100
-        hue = ofMap(atan2(y2 - y1, x2 - x1), -PI, PI, 0, 255);
-        
-        // Default size is based on the screen size
-        size = _stageHeight * 0.1;
+    Particle(ofVec2f origin,ofVec2f initVel)
+    {
+        this->pos = origin;
+        this->vel = initVel;
+        c = ofColor::fromHsb(ofRandom(0,255), 255, 255);
     }
     
-    void draw(ofImage ringImage) {
-        ofPushStyle();
-        // Particles fade each frame
-        intensity *= 0.95;
-        
-        // They grow at a rate based on their intensity
-        size += _stageHeight * intensity * 0.01;
-        
-        // If the particle is still alive, draw it
-        if (intensity >= 1) {
-            ofEnableBlendMode(OF_BLENDMODE_ADD);
-            ofColor c;
-            c.setHsb(hue, 200, intensity);
-            ofSetColor(c);
-            ringImage.draw(x - size/2, y - size/2, size,size);
-            ofDisableBlendMode();
-        }
-        ofPopStyle();
+    void update()
+    {
+        vel -= ofVec2f(0,-0.25f);
+        pos += vel;
     }
-private:
-    float x, y, size, intensity, hue,_stageHeight;
+    
+    void draw()
+    {
+        ofSetColor(c);
+        ofDrawRectangle(pos.x,pos.y,20,20);
+    }
+    
+    ofVec2f pos;
+    ofVec2f vel;
+    ofColor c;
+    bool isAlive = true;
 };
 
 class DebugEffects
@@ -87,7 +70,6 @@ class DebugEffects
         {
             dotTex.load("Textures/dot.png");
             ringTex.load("Textures/ring.png");
-            noiseTex.allocate(ofGetWidth()/8, ofGetHeight()/8, OF_IMAGE_GRAYSCALE);
             subdivision = 3;
             
             for (int i = 0; i < (subdivision*subdivision); i++) {
@@ -105,12 +87,10 @@ class DebugEffects
                 case static_cast<int>(Effects::Mouse): renderMouseEffect(); break;
                 case static_cast<int>(Effects::SpinningDots): renderSpinningDots(); break;
                 case static_cast<int>(Effects::SpinningLines): renderSpinningLines(); break;
-                case static_cast<int>(Effects::Noise): renderNoiseTexture(); break;
-                case static_cast<int>(Effects::Waves): renderWaves(); break;
+                case static_cast<int>(Effects::Fountain): renderFountain(); break;
                 case static_cast<int>(Effects::BlockColor): renderBlockColor(); break;
                 case static_cast<int>(Effects::FadeToWhite): renderMouseEffect(); break;
                 case static_cast<int>(Effects::RotatingCircles): renderMouseEffect(); break;
-                case static_cast<int>(Effects::Gradient): renderMouseEffect(); break;
                 default: break;
             }
         }
@@ -181,66 +161,20 @@ class DebugEffects
         }
     
         /**
-         Render the Noise Image
-         */
-        //--------------------------------------------------------------
-        void renderNoiseTexture()
-        {
-            if(ofGetFrameNum() % 60 == 0) {
-                for(int x = 0; x < noiseTex.getWidth(); x++) {
-                    for(int y = 0; y < noiseTex.getHeight(); y++) {
-                        ofColor initialColor = ofColor(255*ofNoise(x/100.0,y/100.0,ofGetElapsedTimef()),255);
-                        noiseTex.setColor((int)(x+y*noiseTex.getWidth()), initialColor);
-                    }
-                }
-                noiseTex.update();
-            }
-            
-            ofPushMatrix();
-            ofScale(8, 8);
-            ofSetColor(255, 255, 255);
-            noiseTex.draw(0, 0);
-            ofPopMatrix();
-        }
-    
-        /**
-         Render the Waves Effect
-         */
-        //--------------------------------------------------------------
-        void renderWaves()
-        {
-            float prevX = smoothX;
-            float prevY = smoothY;
-            smoothX += (ofGetMouseX() - smoothX) * 0.1;
-            smoothY += (ofGetMouseY() - smoothY) * 0.1;
-            
-            // At every frame, randomly respawn one ring
-            rings[int(ofRandom(100))].respawn(ofGetHeight(),prevX, prevY, smoothX, smoothY);
-            
-            // Give each ring a chance to redraw and update
-            for (int i = 0; i < 100; i++) {
-                rings[i].draw(ringTex);
-            }
-        }
-    
-        /**
          Render the Block Color Effect
          */
         //--------------------------------------------------------------
         void renderBlockColor()
         {
-            
             int width = ofGetWidth()/subdivision;
             int height = ofGetHeight()/subdivision;
-            
             int ca = 0;
-            // Fade to full brightness then to zero
+            
             ofPushStyle();
             for(int y = 0; y < subdivision; y++)
             {
                 for(int x = 0; x < subdivision; x++)
                 {
-                    
                     float hue = fmodf(ofGetElapsedTimef()*randomise[ca],255);
                     ofColor c = ofColor::fromHsb(hue, 255, 255);
                     ofSetColor(c);
@@ -251,14 +185,32 @@ class DebugEffects
             ofPopStyle();
         }
     
+        void renderFountain()
+        {
+            if(ps.size() > 100)
+            {
+                ps.pop_back();
+            }
+            
+            if(ofGetFrameNum() % 5 == 0)
+            {
+                ps.push_front(Particle(ofVec2f(ofGetWidth()/2,ofGetHeight()/4*3),ofVec2f(ofRandom(-2.5,2.5),ofRandom(-10.5,0.4))));
+            }
+            
+            for (int i = 0; i < ps.size(); i++)
+            {
+                ps[i].update();
+                ps[i].draw();
+            }
+            
+        }
+    
         int subdivision = 3;
         ofImage noiseTex;
         ofImage dotTex;
         ofImage ringTex;
-        Ring rings[100];
-        float smoothX, smoothY;
         vector <float> randomise;
-    
+        deque <Particle> ps;
 };
 
 #endif /* DebugEffects_h */
