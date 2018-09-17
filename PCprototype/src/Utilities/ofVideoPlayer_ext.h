@@ -42,7 +42,7 @@ class ofVideoPlayer_ext: public ofVideoPlayer {
         void loadVideo(string path,string videoId)
         {
             this->videoId = videoId;
-            this->load(path);
+            this->loadAsync(path);
             notified = false;
         }
     
