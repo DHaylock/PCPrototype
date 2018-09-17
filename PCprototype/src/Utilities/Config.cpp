@@ -25,12 +25,29 @@ void Config::load()
         if(c.isMember("kenkenpa"))
         {
             PCMessage("Config Manager", "[Success]: Ken Ken Pa Config Found");
-            kkpdata.player1StartKey = c["kenkenpa"]["player1startkey"].asInt();
-            kkpdata.player1EndKey = c["kenkenpa"]["player1endkey"].asInt();
-            kkpdata.player2StartKey = c["kenkenpa"]["player2startkey"].asInt();
-            kkpdata.player2EndKey = c["kenkenpa"]["player2endkey"].asInt();
-            kkpdata.dualPlayersStartKey = c["kenkenpa"]["dualplayerstartkey"].asInt();
-            kkpdata.dualPlayersEndKey = c["kenkenpa"]["dualplayersendkey"].asInt();
+            
+            kkpdata.pK.player1StartKey = c["kenkenpa"]["playertriggerkeys"]["player1startkey"].asInt();
+            kkpdata.pK.player1EndKey = c["kenkenpa"]["playertriggerkeys"]["player1endkey"].asInt();
+            kkpdata.pK.player2StartKey = c["kenkenpa"]["playertriggerkeys"]["player2startkey"].asInt();
+            kkpdata.pK.player2EndKey = c["kenkenpa"]["playertriggerkeys"]["player2endkey"].asInt();
+            kkpdata.pK.dualPlayersStartKey = c["kenkenpa"]["playertriggerkeys"]["dualplayerstartkey"].asInt();
+            kkpdata.pK.dualPlayersEndKey = c["kenkenpa"]["playertriggerkeys"]["dualplayersendkey"].asInt();
+            
+            kkpdata.mK.allStopKey = c["kenkenpa"]["triggerkeys"]["allstop"].asInt();
+            kkpdata.mK.attractorModeKey = c["kenkenpa"]["triggerkeys"]["attractormode"].asInt();
+            kkpdata.mK.explainerModeKey = c["kenkenpa"]["triggerkeys"]["explainermode"].asInt();
+            kkpdata.mK.countdownModeKey = c["kenkenpa"]["triggerkeys"]["countdownmode"].asInt();
+            kkpdata.mK.gameModeKey = c["kenkenpa"]["triggerkeys"]["gamemode"].asInt();
+            kkpdata.mK.winModeKey = c["kenkenpa"]["triggerkeys"]["gamemode"].asInt();
+        
+            kkpdata.boostFile1 = c["kenkenpa"]["boost"]["boost1"].asString();
+            kkpdata.boostFile2 = c["kenkenpa"]["boost"]["boost2"].asString();
+            kkpdata.boostFile3 = c["kenkenpa"]["boost"]["boost3"].asString();
+            kkpdata.boostFile4 = c["kenkenpa"]["boost"]["boost4"].asString();
+            kkpdata.boost1StartKey = c["kenkenpa"]["boost"]["boost1startkey"].asInt();
+            kkpdata.boost2StartKey = c["kenkenpa"]["boost"]["boost2startkey"].asInt();
+            kkpdata.boost3StartKey = c["kenkenpa"]["boost"]["boost3startkey"].asInt();
+            kkpdata.boost4StartKey = c["kenkenpa"]["boost"]["boost4startkey"].asInt();
             
             vector<KenKenPa> kkd;
             // Get the Versions

@@ -13,33 +13,36 @@
 #include "Tween.h"
 #include "ofxCenteredTrueTypeFont.h"
 
+//--------------------------------------------------------------
 enum class Effects
 {
     Mouse,
     SpinningDots,
     SpinningLines,
-    Noise,
-    Waves,
+    Fountain,
     BlockColor,
     FadeToWhite,
     RotatingCircles,
-    Gradient
+    Shader
 };
 
+//--------------------------------------------------------------
 enum class Mode {
     Debug,
     KenKenPa,
     PhysicalToy
 };
 
+//--------------------------------------------------------------
 enum class KenKenState {
     Attractor,
-    Kiosk,
+    Explainer,
     Ready,
     Game,
     Reward
 };
 
+//--------------------------------------------------------------
 enum class KenKenMode {
     OnePlayer,
     TwoPlayers
@@ -59,6 +62,58 @@ void PCMessage(T s_Class,T s_Message) {
     ofSendMessage(msg);
 }
 
+struct ModeTriggerKeys {
+    ModeTriggerKeys(){}
+    ModeTriggerKeys(int allStopKey,
+                int attractorModeKey,
+                int explainerModeKey,
+                int countdownModeKey,
+                int gameModeKey,
+                int winModeKey)
+    {
+        this->allStopKey = allStopKey;
+        this->attractorModeKey = attractorModeKey;
+        this->explainerModeKey = explainerModeKey;
+        this->countdownModeKey = countdownModeKey;
+        this->gameModeKey = gameModeKey;
+        this->winModeKey = winModeKey;
+    }
+    
+    int allStopKey;
+    int attractorModeKey;
+    int explainerModeKey;
+    int countdownModeKey;
+    int gameModeKey;
+    int winModeKey;
+};
+
+struct PlayerTriggerKeys
+{
+    PlayerTriggerKeys() {}
+    PlayerTriggerKeys(int player1StartKey,
+                      int player1EndKey,
+                      int player2StartKey,
+                      int player2EndKey,
+                      int dualPlayersStartKey,
+                      int dualPlayersEndKey)
+    {
+        this->player1StartKey = player1StartKey;
+        this->player1EndKey = player1EndKey;
+        this->player2StartKey = player2StartKey;
+        this->player2EndKey = player2EndKey;
+        this->dualPlayersStartKey = dualPlayersStartKey;
+        this->dualPlayersEndKey = dualPlayersEndKey;
+    }
+    
+    int player1StartKey;
+    int player1EndKey;
+    int player2StartKey;
+    int player2EndKey;
+    int dualPlayersStartKey;
+    int dualPlayersEndKey;
+};
+
+//--------------------------------------------------------------
 struct KenKenPa {
     KenKenPa() {}
     KenKenPa(int id,
@@ -77,6 +132,7 @@ struct KenKenPa {
         this->kioskFile = kioskFile;
         this->rewardFile = rewardFile;
     }
+    
     int id;
     string name;
     int waitOutTimer;
@@ -86,55 +142,41 @@ struct KenKenPa {
     string rewardFile;
 };
 
+//--------------------------------------------------------------
 struct KenKenPaData {
     KenKenPaData() {}
-    KenKenPaData(int player1StartKey,int player1EndKey,int player2StartKey,int player2EndKey,int dualPlayersStartKey,int dualPlayersEndKey,vector<KenKenPa> versions)
+    KenKenPaData(ModeTriggerKeys mK,
+                 PlayerTriggerKeys pK,
+                 string boostFile1,
+                 string boostFile2,
+                 string boostFile3,
+                 string boostFile4,
+                 vector<KenKenPa> versions)
     {
-        this->player1StartKey = player1StartKey;
-        this->player1EndKey = player1EndKey;
-        this->player2StartKey = player2StartKey;
-        this->player2EndKey = player2EndKey;
-        this->dualPlayersStartKey = dualPlayersStartKey;
-        this->dualPlayersEndKey = dualPlayersEndKey;
+        this->mK = mK;
+        this->pK = pK;
+        this->boostFile1 = boostFile1;
+        this->boostFile2 = boostFile2;
+        this->boostFile3 = boostFile3;
+        this->boostFile4 = boostFile4;
         this->versions = versions;
     }
-    int player1StartKey;
-    int player1EndKey;
-    int player2StartKey;
-    int player2EndKey;
-    int dualPlayersStartKey;
-    int dualPlayersEndKey;
+    
+    
+    ModeTriggerKeys mK;
+    PlayerTriggerKeys pK;
+    
+    int boost1StartKey;
+    int boost2StartKey;
+    int boost3StartKey;
+    int boost4StartKey;
+    string boostFile1;
+    string boostFile2;
+    string boostFile3;
+    string boostFile4;
     
     vector<KenKenPa> versions;
 };
-
-//struct PhysicalToyCombo
-//{
-//    PhysicalToyCombo() {}
-//    PhysicalToyCombo()
-//    {
-//
-//    }
-//
-//    vector<int> btns;
-//}
-
-//struct PhysicalToyData
-//{
-//    PhysicalToyData() {}
-//    PhysicalToyData(int btn1Key,int btn2key,int btn3key,int btn4key)
-//    {
-//        this->btn1key = btn1key;
-//        this->btn2key = btn2key;
-//        this->btn3key = btn3key;
-//        this->btn4key = btn4key;
-//    }
-//    
-//    int btn1Key;
-//    int btn2key;
-//    int btn3key;
-//    int btn4key;
-//};
 
 #include "StateManager.h"
 #include "Config.h"

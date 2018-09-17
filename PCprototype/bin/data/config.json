@@ -10,12 +10,32 @@
     }
   },
   "kenkenpa": {
-    "player1startkey": 49,
-    "player1endkey": 113,
-    "player2startkey": 50,
-    "player2endkey": 119,
-    "dualplayerstartkey": 97,
-    "dualplayerendkey": 122,
+    "triggerkeys" : {
+      "allstop": 113,
+      "attractormode": 32,
+      "explainermode": 101,
+      "countdownmode": 99,
+      "gamemode": 103,
+      "winmode": 119
+    },
+    "playertriggerkeys": {
+      "player1startkey": 49,
+      "player1endkey": 113,
+      "player2startkey": 50,
+      "player2endkey": 119,
+      "dualplayerstartkey": 97,
+      "dualplayerendkey": 122
+    },
+    "boost" : {
+      "boost1startkey": 55,
+      "boost2startkey": 56,
+      "boost3startkey": 57,
+      "boost4startkey": 48,
+      "boost1": "Videos/boost/1.mov",
+      "boost2": "Videos/boost/2.mov",
+      "boost3": "Videos/boost/3.mov",
+      "boost4": "Videos/boost/4.mov"
+    },
     "versions": [
       {
         "id": 0,
@@ -36,8 +56,5 @@
         "reward": "Videos/rewards/1.mov"
       }
     ]
-  },
-  "physicaltoy": {
-    
   }
 }
