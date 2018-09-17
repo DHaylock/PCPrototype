@@ -7,7 +7,7 @@
 
 #include "VisualManager.h"
 
-//--------------------------------------------------------------
+
 void VisualManager::init()
 {
     ofAddListener(ofEvents().keyPressed, this, &VisualManager::keyPress);
