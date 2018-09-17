@@ -53,6 +53,42 @@ public:
     void renderRewardGameState();
     
     /**
+     All Stop
+     */
+    //--------------------------------------------------------------
+    void allStop();
+    
+    /**
+     Set To Attractor Mode
+     */
+    //--------------------------------------------------------------
+    void setAttractorMode();
+    
+    /**
+     Set To Explainer Mode
+     */
+    //--------------------------------------------------------------
+    void setExplainerMode();
+    
+    /**
+     Set To Countdown Mode
+     */
+    //--------------------------------------------------------------
+    void setCountdownMode();
+    
+    /**
+     Set To Game Mode
+     */
+    //--------------------------------------------------------------
+    void setGameMode();
+    
+    /**
+     Set To Game Mode
+     */
+    //--------------------------------------------------------------
+    void setWinMode();
+    
+    /**
      Key Pressed Event
 
      @param key what key
@@ -77,6 +113,7 @@ public:
 
     ofParameter <int> versionNo;
     ofParameter <bool> bLoad;
+    
     private:
     
     KenKenPaData data;
@@ -91,7 +128,8 @@ public:
     ofxCenteredTrueTypeFont timerFont;
     
     ofVideoPlayer_ext attractorPlayer;
-    ofVideoPlayer_ext kioskPlayer;
+    ofVideoPlayer_ext explainerPlayer;
+    ofVideoPlayer_ext boostPlayer;
     ofVideoPlayer_ext rewardPlayer;
     
     Stopwatch player1Stopwatch;

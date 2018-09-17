@@ -11,7 +11,6 @@
 //-------------------------------------------------------------
 void KenKenPaManager::init()
 {
-    
     ofAddListener(ofEvents().keyPressed, this, &KenKenPaManager::keyPressed);
     PCMessage("KenKenPaManager", "[Success]: Ken Ken Pa Initialized");
  
@@ -31,7 +30,7 @@ void KenKenPaManager::init()
     bLoad.addListener(this, &KenKenPaManager::loadVersion);
     bLoad.set("Load Version",false);
     
-    bool s = false;
+    bool s = true;
     loadVersion(s);
 
     countDownTween.setup(0,1.0f, 5.0f, 0.1f,"Count Down");
@@ -41,61 +40,71 @@ void KenKenPaManager::init()
     ofAddListener(attractorPlayer.videoStarted, this, &KenKenPaManager::videoStarted);
     ofAddListener(attractorPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
     
-    ofAddListener(kioskPlayer.videoStarted, this, &KenKenPaManager::videoStarted);
-    ofAddListener(kioskPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
+    ofAddListener(explainerPlayer.videoStarted, this, &KenKenPaManager::videoStarted);
+    ofAddListener(explainerPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
     
     ofAddListener(rewardPlayer.videoStarted, this, &KenKenPaManager::videoStarted);
     ofAddListener(rewardPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
+    
+    ofAddListener(boostPlayer.videoStarted, this, &KenKenPaManager::videoStarted);
+    ofAddListener(boostPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
+    
+    boostPlayer.loadVideo(data.boostFile1,"Boost 1");
+    boostPlayer.setLoopState(OF_LOOP_NONE);
 }
 
 //-------------------------------------------------------------
 void KenKenPaManager::loadVersion(bool &val)
 {
-    PCMessage("KenKenPaManager", "[Wait]: Ken Ken Pa Loading New Version");
-    auto it = find_if(data.versions.begin(), data.versions.end(), [&](KenKenPa const &k) {
-        return k.id == versionNo;
-    });
-    
-    // If we dont find the Quadrant
-    if (it == data.versions.end())
+    if(val)
     {
-        PCMessage("KenKenPaManager", "[Error]: No Version Found");
-        return;
+        PCMessage("KenKenPaManager", "[Wait]: Ken Ken Pa Loading New Version");
+        auto it = find_if(data.versions.begin(), data.versions.end(), [&](KenKenPa const &k) {
+            return k.id == versionNo;
+        });
+        
+        // If we dont find the Quadrant
+        if (it == data.versions.end())
+        {
+            PCMessage("KenKenPaManager", "[Error]: No Version Found");
+            return;
+        }
+        
+        int id = distance(data.versions.begin(), it);
+        attractorPlayer.close();
+        explainerPlayer.close();
+        rewardPlayer.close();
+        
+        attractorPlayer.loadVideo(data.versions[id].attractorFile,"Attractor");
+        attractorPlayer.setLoopState(OF_LOOP_NORMAL);
+        
+        explainerPlayer.loadVideo(data.versions[id].kioskFile,"Kiosk");
+        explainerPlayer.setLoopState(OF_LOOP_NONE);
+        
+        rewardPlayer.loadVideo(data.versions[id].rewardFile,"Reward");
+        rewardPlayer.setLoopState(OF_LOOP_NONE);
+        
+        bLoad = false;
+        
+        ofRemoveListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
+        ofRemoveListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
+        
+        waitOutTimer.setup(data.versions[id].waitOutTimer, "Wait Out", false);
+        
+        ofAddListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
+        ofAddListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
+        
+        ofRemoveListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
+        ofRemoveListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
+        
+        attractorTimer.setup(data.versions[id].attractorTimer, "Attractor", false);
+        
+        ofAddListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
+        ofAddListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
+        
+        // Auto Run the Attractor
+        attractorPlayer.playVideo();
     }
-    
-    int id = distance(data.versions.begin(), it);
-    attractorPlayer.close();
-    kioskPlayer.close();
-    rewardPlayer.close();
-    
-    attractorPlayer.loadVideo(data.versions[id].attractorFile,"Attractor");
-    attractorPlayer.setLoopState(OF_LOOP_NORMAL);
-    
-    kioskPlayer.loadVideo(data.versions[id].kioskFile,"Kiosk");
-    kioskPlayer.setLoopState(OF_LOOP_NONE);
-    
-    rewardPlayer.loadVideo(data.versions[id].rewardFile,"Reward");
-    rewardPlayer.setLoopState(OF_LOOP_NONE);
-    bLoad = false;
-    
-    ofRemoveListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
-    ofRemoveListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
-    
-    waitOutTimer.setup(data.versions[id].waitOutTimer, "Wait Out", false);
-    
-    ofAddListener(waitOutTimer.timerStarted, this, &KenKenPaManager::waitOutTimerStarted);
-    ofAddListener(waitOutTimer.timerFinished, this, &KenKenPaManager::waitOutTimerFinished);
-    
-    ofRemoveListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
-    ofRemoveListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
-    
-    attractorTimer.setup(data.versions[id].attractorTimer, "Attractor", false);
-    
-    ofAddListener(attractorTimer.timerStarted, this, &KenKenPaManager::attractorTimerStarted);
-    ofAddListener(attractorTimer.timerFinished, this, &KenKenPaManager::attractorTimerFinished);
-    
-    // Auto Run the Attractor
-    attractorPlayer.playVideo();
 }
 
 //-------------------------------------------------------------
@@ -110,9 +119,9 @@ void KenKenPaManager::render()
             attractorPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
         }
             break;
-        case static_cast<int>(KenKenState::Kiosk):
+        case static_cast<int>(KenKenState::Explainer):
         {
-            kioskPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
+            explainerPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
         }
             break;
         case static_cast<int>(KenKenState::Ready):
@@ -133,6 +142,13 @@ void KenKenPaManager::render()
         default:
             break;
     }
+    
+    if(boostPlayer.isLoaded() && boostPlayer.isPlaying())
+    {
+        ofSetColor(255, 255, 255);
+        boostPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
+    }
+    
     ofPopStyle();
 }
 
@@ -143,6 +159,7 @@ void KenKenPaManager::renderReadyState()
     ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
     ofScale(countDownTween.getCurrentValue(), countDownTween.getCurrentValue());
     ofSetColor(255, 255, 255);
+    
     if(countDown != 0)
         bigFont.drawStringCentered(ofToString(countDown), 0, 0);
     else
@@ -227,78 +244,177 @@ void KenKenPaManager::renderRewardGameState()
 }
 
 //-------------------------------------------------------------
+void KenKenPaManager::allStop()
+{
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Attractor);
+    explainerPlayer.stopVideo();
+    boostPlayer.stopVideo();
+    rewardPlayer.stopVideo();
+    player1Stopwatch.stop();
+    player2Stopwatch.stop();
+}
+
+//-------------------------------------------------------------
+void KenKenPaManager::setAttractorMode()
+{
+    allStop();
+    attractorPlayer.playVideo();
+}
+
+//-------------------------------------------------------------
+void KenKenPaManager::setExplainerMode()
+{
+    allStop();
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Explainer);
+    explainerPlayer.playVideo();
+}
+
+//-------------------------------------------------------------
+void KenKenPaManager::setCountdownMode()
+{
+    allStop();
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Ready);
+    countDown = 3;
+    countDownTween.start();
+}
+
+//-------------------------------------------------------------
+void KenKenPaManager::setGameMode()
+{
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Game);
+}
+
+//-------------------------------------------------------------
+void KenKenPaManager::setWinMode()
+{
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Reward);
+    rewardPlayer.playVideo();
+}
+
+//-------------------------------------------------------------
 void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
 {
-    if(key.key == data.dualPlayersStartKey)
+    if(key.key == data.pK.dualPlayersStartKey)
     {
-        attractorPlayer.stopVideo();
-        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Kiosk);
-        kioskPlayer.playVideo();
-        StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::TwoPlayers);
-    }
-    
-    if(key.key == data.player1StartKey)
-    {
-        attractorPlayer.stopVideo();
-        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Kiosk);
-        kioskPlayer.playVideo();
-        StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::OnePlayer);
-    }
-    
-    if(key.key == data.player2StartKey)
-    {
-        attractorPlayer.stopVideo();
-        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Kiosk);
-        kioskPlayer.playVideo();
-        StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::OnePlayer);
-    }
-    
-    if(key.key == data.player1EndKey)
-    {
-        // If it's one player stop the clock and trigger the wait out timer
-        if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::OnePlayer))
+        if(StateManager::instance().currentKenKenState == static_cast<int>(KenKenState::Attractor))
         {
-            // Stop the clock
-            player1Stopwatch.stop();
-            waitOutTimer.start();
+            attractorPlayer.stopVideo();
+            StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Explainer);
+            explainerPlayer.playVideo();
+            StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::TwoPlayers);
         }
-        else if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
+    }
+    
+    if(key.key == data.pK.player1StartKey)
+    {
+        if(StateManager::instance().currentKenKenState == static_cast<int>(KenKenState::Attractor))
         {
-            // If two player
-            // Check if player two's stopwatch is running.
-            // If it is stop player ones and wait
-            if(player2Stopwatch.isRunning())
+            attractorPlayer.stopVideo();
+            StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Explainer);
+            explainerPlayer.playVideo();
+            StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::OnePlayer);
+        }
+    }
+    
+    if(key.key == data.pK.player2StartKey)
+    {
+        if(StateManager::instance().currentKenKenState == static_cast<int>(KenKenState::Attractor))
+        {
+            attractorPlayer.stopVideo();
+            StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Explainer);
+            explainerPlayer.playVideo();
+            StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::OnePlayer);
+        }
+    }
+    
+    if(key.key == data.pK.player1EndKey)
+    {
+        if(StateManager::instance().currentKenKenState == static_cast<int>(KenKenState::Game))
+        {
+            // If it's one player stop the clock and trigger the wait out timer
+            if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::OnePlayer))
             {
-                player1Stopwatch.stop();
-            }
-            else
-            {
-                // Other wise stop player 1s and start the wait out timer.
+                // Stop the clock
                 player1Stopwatch.stop();
                 waitOutTimer.start();
             }
+            else if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
+            {
+                // If two player
+                // Check if player two's stopwatch is running.
+                // If it is stop player ones and wait
+                if(player2Stopwatch.isRunning())
+                {
+                    player1Stopwatch.stop();
+                }
+                else
+                {
+                    // Other wise stop player 1s and start the wait out timer.
+                    player1Stopwatch.stop();
+                    waitOutTimer.start();
+                }
+            }
         }
     
     }
     
-    if(key.key == data.player2EndKey)
+    if(key.key == data.pK.player2EndKey)
     {
-        if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
+        if(StateManager::instance().currentKenKenState == static_cast<int>(KenKenState::Game))
         {
-            // If two player
-            // Check if player two's stopwatch is running.
-            // If it is stop player ones and wait
-            if(player1Stopwatch.isRunning())
+            if (StateManager::instance().currentKenKenMode == static_cast<int>(KenKenMode::TwoPlayers))
             {
-                player2Stopwatch.stop();
-            }
-            else
-            {
-                // Other wise stop player 1s and start the wait out timer.
-                player2Stopwatch.stop();
-                waitOutTimer.start();
+                // If two player
+                // Check if player two's stopwatch is running.
+                // If it is stop player ones and wait
+                if(player1Stopwatch.isRunning())
+                {
+                    player2Stopwatch.stop();
+                }
+                else
+                {
+                    // Other wise stop player 1s and start the wait out timer.
+                    player2Stopwatch.stop();
+                    waitOutTimer.start();
+                }
             }
         }
+    }
+    
+    cout << key.key << endl;
+    if(key.key == data.mK.allStopKey) allStop();
+    if(key.key == data.mK.attractorModeKey) setAttractorMode();
+    if(key.key == data.mK.explainerModeKey) setExplainerMode();
+    if(key.key == data.mK.countdownModeKey) setCountdownMode();
+    if(key.key == data.mK.gameModeKey) setGameMode();
+    if(key.key == data.mK.winModeKey) setWinMode();
+    
+    if(key.key == data.boost1StartKey)
+    {
+        boostPlayer.close();
+        boostPlayer.loadVideo(data.boostFile1, "Boost 1");
+        boostPlayer.playVideo();
+    }
+    
+    if(key.key == data.boost2StartKey)
+    {
+        boostPlayer.close();
+        boostPlayer.loadVideo(data.boostFile2, "Boost 2");
+        boostPlayer.playVideo();
+    }
+    
+    if(key.key == data.boost3StartKey)
+    {
+        boostPlayer.close();
+        boostPlayer.loadVideo(data.boostFile3, "Boost 3");
+        boostPlayer.playVideo();
+    }
+    
+    if(key.key == data.boost4StartKey)
+    {
+        boostPlayer.close();
+        boostPlayer.loadVideo(data.boostFile4, "Boost 4");
+        boostPlayer.playVideo();
     }
 }
 
