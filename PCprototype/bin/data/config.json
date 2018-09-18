@@ -31,11 +31,10 @@
       "boost2startkey": 56,
       "boost3startkey": 57,
       "boost4startkey": 48,
-      "boost1": "Videos/boost/1.mov",
+      "boost1": "Videos/boost/arrows_colourtest_2.mov",
       "boost2": "Videos/boost/2.mov",
       "boost3": "Videos/boost/3.mov",
-      "boost4": "Videos/boost/4.mov"
-    },
+      "boost4": "Videos/boost/4.mov"   },
     "versions": [
       {
         "id": 0,
@@ -51,9 +50,9 @@
         "waitouttimer": 1500,
         "attractortimer": 2000,
         "name": "Default 2",
-        "attractor": "Videos/kiosks/1.mov",
-        "kiosk": "Videos/attractors/1.mov",
-        "reward": "Videos/rewards/1.mov"
+        "attractor": "Videos/attractors/spots_attractor_1.mov",
+        "kiosk": "Videos/kiosks/spots_explainer_2.mov",
+        "reward": "Videos/rewards/spots_p1_wins.mov"
       }
     ]
   }

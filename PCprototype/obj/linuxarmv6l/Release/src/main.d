@@ -604,7 +604,9 @@ obj/linuxarmv6l/Release/src/main.o: \
  /home/pi/openFrameworks/addons/ofxJSON/libs/jsoncpp/include/json/json.h \
  /home/pi/openFrameworks/addons/ofxJSON/src/ofxJSONElement.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Stopwatch.h \
+ /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Timer.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofVideoPlayer_ext.h \
+ /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/DebugEffects.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/VisualManager.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/KenKenPaManager.h
 
@@ -1856,7 +1858,11 @@ obj/linuxarmv6l/Release/src/main.o: \
 
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Stopwatch.h:
 
+/home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Timer.h:
+
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofVideoPlayer_ext.h:
+
+/home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/DebugEffects.h:
 
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/VisualManager.h:
 

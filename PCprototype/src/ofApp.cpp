@@ -6,7 +6,7 @@ void ofApp::setup()
     logSize = 25;
     
     ofSetVerticalSync(true);
-    ofSetFrameRate(120);
+    ofSetFrameRate(40);
     
     // Setup the Gui
     gui.setup();

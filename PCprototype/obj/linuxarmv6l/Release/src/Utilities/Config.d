@@ -601,7 +601,9 @@ obj/linuxarmv6l/Release/src/Utilities/Config.o: \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofxCenteredTrueTypeFont.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/StateManager.h \
  /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Stopwatch.h \
- /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofVideoPlayer_ext.h
+ /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Timer.h \
+ /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofVideoPlayer_ext.h \
+ /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/DebugEffects.h
 
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Config.h:
 
@@ -1845,4 +1847,8 @@ obj/linuxarmv6l/Release/src/Utilities/Config.o: \
 
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Stopwatch.h:
 
+/home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/Timer.h:
+
 /home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/ofVideoPlayer_ext.h:
+
+/home/pi/openFrameworks/apps/PCPrototype/PCprototype/src/Utilities/DebugEffects.h:
