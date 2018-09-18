@@ -14,31 +14,155 @@
 class Particle
 {
 public:
-    Particle() {}
     
-    Particle(ofVec2f origin,ofVec2f initVel)
+    Particle() {}
+    Particle(ofVec2f pos,ofVec2f vel,int hue)
     {
-        this->pos = origin;
-        this->vel = initVel;
-        c = ofColor::fromHsb(ofRandom(0,255), 255, 255);
+        this->pos = pos;
+        this->vel = vel;
+        bIsAlive = true;
+        this->hue = hue;
+        c.setHsb(hue,255,255);
+        lifespan = 255;
+    }
+    
+    void applyForce(ofVec2f frc)
+    {
+        acc += frc;
     }
     
     void update()
     {
-        vel -= ofVec2f(0,-0.25f);
+        vel += acc;
         pos += vel;
+        acc *= ofVec2f(0,0);
+        
+        if(lifespan > 0) {
+            lifespan -= 2;
+        }
+        
+        if(pos.y > ofGetHeight())
+        {
+            bIsAlive = false;
+        }
+    }
+    
+    ofVec2f getPosition()
+    {
+        return pos;
+    }
+    
+    ofVec2f getVelocity()
+    {
+        return vel;
+    }
+    
+    bool isAlive()
+    {
+        return bIsAlive;
     }
     
     void draw()
     {
-        ofSetColor(c);
-        ofDrawRectangle(pos.x,pos.y,20,20);
+        ofSetColor(c, lifespan);
+        ofDrawRectangle(pos.x,pos.y,15,15);
     }
     
+private:
     ofVec2f pos;
+    ofVec2f acc;
     ofVec2f vel;
+    int lifespan;
+    bool bIsAlive;
+    int hue;
     ofColor c;
-    bool isAlive = true;
+};
+
+class Firework
+{
+public:
+    
+    Firework() {}
+    ~Firework() {}
+    
+    
+    Firework(ofVec2f pos, ofVec2f vel)
+    {
+        hue = ofRandom(255);
+        f = Particle(pos,vel,hue);
+        hasExploded = false;
+        bIsDead = false;
+    }
+    
+    /**
+     Explode
+     */
+    void explode()
+    {
+        hasExploded = true;
+        if(!bIsDead)
+        {
+            for(int i = 0; i < 75; i++)
+            {
+                particles.push_back(Particle(
+                                             f.getPosition(),
+                                             ofVec2f(ofRandom(-5.5,5.5),
+                                                     ofRandom(-10.5,1.5)),hue));
+            }
+        }
+    }
+    
+    /**
+     Has the firework moved off the screen
+     
+     @return flag
+     */
+    bool isDead()
+    {
+        return bIsDead;
+    }
+    
+    /**
+     Update Positions
+     */
+    void update()
+    {
+        for(int i = 0; i < particles.size(); i++)
+        {
+            particles[i].applyForce(ofVec2f(0,0.5));
+            particles[i].update();
+        }
+        
+        if(f.getVelocity().y >= 0.0 && !hasExploded)
+        {
+            this->explode();
+        }
+        
+        f.applyForce(ofVec2f(0,0.5));
+        f.update();
+        if(f.getPosition().y > ofGetHeight() && !bIsDead) bIsDead = true;
+    }
+    
+    /**
+     Draw the Particles
+     */
+    void draw()
+    {
+        for(int i = 0; i < particles.size(); i++)
+        {
+            particles[i].draw();
+        }
+        
+        f.draw();
+    }
+    
+    
+private:
+    Particle f;
+    int hue;
+    deque <Particle> particles;
+    bool hasExploded;
+    bool bIsDead = false;
 };
 
 class DebugEffects
@@ -88,6 +212,7 @@ class DebugEffects
                 case static_cast<int>(Effects::SpinningDots): renderSpinningDots(); break;
                 case static_cast<int>(Effects::SpinningLines): renderSpinningLines(); break;
                 case static_cast<int>(Effects::Fountain): renderFountain(); break;
+                case static_cast<int>(Effects::Fireworks): renderFireworks(); break;
                 case static_cast<int>(Effects::BlockColor): renderBlockColor(); break;
                 case static_cast<int>(Effects::FadeToWhite): renderMouseEffect(); break;
                 case static_cast<int>(Effects::RotatingCircles): renderMouseEffect(); break;
@@ -187,23 +312,43 @@ class DebugEffects
     
         void renderFountain()
         {
-            if(ps.size() > 100)
+            if(ps.size() > 50)
             {
                 ps.pop_back();
             }
             
             if(ofGetFrameNum() % 5 == 0)
             {
-                ps.push_front(Particle(ofVec2f(ofGetWidth()/2,ofGetHeight()/4*3),ofVec2f(ofRandom(-2.5,2.5),ofRandom(-10.5,0.4))));
+                ps.push_front(Particle(ofVec2f(ofGetWidth()/2,
+                                               ofGetHeight()/4*3),
+                                       ofVec2f(ofRandom(-2.5,2.5),ofRandom(-25.5,-5.0)),ofRandom(255)));
             }
             
             for (int i = 0; i < ps.size(); i++)
             {
+                ps[i].applyForce(ofVec2f(0,0.5));
                 ps[i].update();
                 ps[i].draw();
             }
-            
         }
+    
+        void renderFireworks()
+        {
+            int s = ofRandom(-10,10);
+            if (ofGetFrameNum() % (45+s) == 0)
+            {
+                fireworks.push_front(Firework(ofVec2f(ofGetWidth()/2+ofRandom(-ofGetWidth()/4,ofGetWidth()/4),ofGetHeight()), ofVec2f(0,ofRandom(-30,-20))));
+            }
+            
+            if(fireworks.size() > 25) fireworks.pop_back();
+            
+            for (int i = 0; i < fireworks.size(); i++)
+            {
+                fireworks[i].update();
+                fireworks[i].draw();
+            }
+        }
+    
     
         int subdivision = 3;
         ofImage noiseTex;
@@ -211,6 +356,7 @@ class DebugEffects
         ofImage ringTex;
         vector <float> randomise;
         deque <Particle> ps;
+        deque<Firework> fireworks;
 };
 
 #endif /* DebugEffects_h */

@@ -110,7 +110,7 @@ void ofApp::drawGui()
             
             if(ofxImGui::BeginTree("Effects", mainSetting))
             {
-                ofxImGui::AddRadio(StateManager::instance().currentEffect,{ "Mouse", "SpinningDots", "SpinningLines","Fountain", "BlockColor", "FadeToWhite", "RotatingCircles"});
+                ofxImGui::AddRadio(StateManager::instance().currentEffect,{ "Mouse", "SpinningDots", "SpinningLines","Fountain","Fireworks","BlockColor", "FadeToWhite", "RotatingCircles"});
                 
                 ofxImGui::EndTree(mainSetting);
             }

@@ -32,6 +32,8 @@ void KenKenPaManager::init()
     bLoad.set("Load Version",false);
     
     bool s = true;
+    
+    bShowBoost = false;
     loadVersion(s);
 
     countDownTween.setup(0,1.0f, 5.0f, 0.1f,"Count Down");
@@ -144,7 +146,7 @@ void KenKenPaManager::render()
             break;
     }
     
-    if(boostPlayer.isLoaded() && boostPlayer.isPlaying())
+    if(boostPlayer.isLoaded() && boostPlayer.isPlaying() && bShowBoost)
     {
         ofSetColor(255, 255, 255);
         boostPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
@@ -394,30 +396,34 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
     
     if(key.key == data.boost1StartKey)
     {
-        boostPlayer.close();
+//        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile1, "Boost 1");
         boostPlayer.playVideo();
+        bShowBoost = true;
     }
     
     if(key.key == data.boost2StartKey)
     {
-        boostPlayer.close();
+//        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile2, "Boost 2");
         boostPlayer.playVideo();
+        bShowBoost = true;
     }
     
     if(key.key == data.boost3StartKey)
     {
-        boostPlayer.close();
+//        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile3, "Boost 3");
         boostPlayer.playVideo();
+        bShowBoost = true;
     }
     
     if(key.key == data.boost4StartKey)
     {
-        boostPlayer.close();
+//        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile4, "Boost 4");
         boostPlayer.playVideo();
+        bShowBoost = true;
     }
 }
 
@@ -471,6 +477,10 @@ void KenKenPaManager::videoFinished(string &id)
     else if (id == "Reward")
     {
         attractorTimer.start();
+    }
+    else if(ofIsStringInString(id, "Boost"))
+    {
+        bShowBoost = false;
     }
 }
 

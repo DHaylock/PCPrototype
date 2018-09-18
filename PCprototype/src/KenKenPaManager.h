@@ -115,6 +115,8 @@ public:
     ofParameter <int> versionNo;
     ofParameter <bool> bLoad;
     
+    bool bShowBoost;
+    
     private:
     
     KenKenPaData data;

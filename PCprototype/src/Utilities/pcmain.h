@@ -20,6 +20,7 @@ enum class Effects
     SpinningDots,
     SpinningLines,
     Fountain,
+    Fireworks,
     BlockColor,
     FadeToWhite,
     RotatingCircles,
