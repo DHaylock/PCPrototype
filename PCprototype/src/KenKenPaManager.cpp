@@ -26,6 +26,7 @@ void KenKenPaManager::init()
     
     data = Config::instance().getKenKenPa();
     
+    bMasterControl.set("Master Control", false);
     versionNo.set("Version Number", 0, 0, data.versions.size()-1);
     bLoad.addListener(this, &KenKenPaManager::loadVersion);
     bLoad.set("Load Version",false);
@@ -124,7 +125,7 @@ void KenKenPaManager::render()
             explainerPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
         }
             break;
-        case static_cast<int>(KenKenState::Ready):
+        case static_cast<int>(KenKenState::Countdown):
         {
             renderReadyState();
         }
@@ -171,7 +172,6 @@ void KenKenPaManager::renderReadyState()
 //-------------------------------------------------------------
 void KenKenPaManager::renderGameState()
 {
-    
     switch(StateManager::instance().currentKenKenMode)
     {
         case static_cast<int>(KenKenMode::OnePlayer):
@@ -205,8 +205,6 @@ void KenKenPaManager::renderGameState()
         default:
             break;
     }
-    
-    
 }
 //-------------------------------------------------------------
 void KenKenPaManager::renderRewardGameState()
@@ -219,7 +217,7 @@ void KenKenPaManager::renderRewardGameState()
     {
         case static_cast<int>(KenKenMode::OnePlayer):
         {
-            status = "Player Time " + ofToString(player1Stopwatch.getElapsedTimef());
+            status = "Player Time " + ofToString(player1Stopwatch.getFormattedTime(false));
         }
             break;
         case static_cast<int>(KenKenMode::TwoPlayers):
@@ -252,6 +250,8 @@ void KenKenPaManager::allStop()
     rewardPlayer.stopVideo();
     player1Stopwatch.stop();
     player2Stopwatch.stop();
+    waitOutTimer.invalidate();
+    attractorTimer.invalidate();
 }
 
 //-------------------------------------------------------------
@@ -273,7 +273,7 @@ void KenKenPaManager::setExplainerMode()
 void KenKenPaManager::setCountdownMode()
 {
     allStop();
-    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Ready);
+    StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Countdown);
     countDown = 3;
     countDownTween.start();
 }
@@ -282,12 +282,16 @@ void KenKenPaManager::setCountdownMode()
 void KenKenPaManager::setGameMode()
 {
     StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Game);
+    player1Stopwatch.start();
+    player2Stopwatch.start();
 }
 
 //-------------------------------------------------------------
-void KenKenPaManager::setWinMode()
+void KenKenPaManager::setRewardMode()
 {
     StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Reward);
+    player1Stopwatch.stop();
+    player2Stopwatch.stop();
     rewardPlayer.playVideo();
 }
 
@@ -381,13 +385,12 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
         }
     }
     
-    cout << key.key << endl;
     if(key.key == data.mK.allStopKey) allStop();
     if(key.key == data.mK.attractorModeKey) setAttractorMode();
     if(key.key == data.mK.explainerModeKey) setExplainerMode();
     if(key.key == data.mK.countdownModeKey) setCountdownMode();
     if(key.key == data.mK.gameModeKey) setGameMode();
-    if(key.key == data.mK.winModeKey) setWinMode();
+    if(key.key == data.mK.winModeKey) setRewardMode();
     
     if(key.key == data.boost1StartKey)
     {
@@ -461,7 +464,7 @@ void KenKenPaManager::videoFinished(string &id)
     
     if(id == "Kiosk")
     {
-        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Ready);
+        StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Countdown);
         countDown = 3;
         countDownTween.start();
     }

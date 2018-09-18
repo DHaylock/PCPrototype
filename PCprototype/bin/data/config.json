@@ -10,23 +10,23 @@
     }
   },
   "kenkenpa": {
-    "triggerkeys" : {
+    "triggerkeys": {
       "allstop": 113,
-      "attractormode": 32,
-      "explainermode": 101,
-      "countdownmode": 99,
-      "gamemode": 103,
-      "winmode": 119
+      "attractormode": 49,
+      "explainermode": 50,
+      "countdownmode": 51,
+      "gamemode": 52,
+      "winmode": 53
     },
     "playertriggerkeys": {
-      "player1startkey": 49,
-      "player1endkey": 113,
-      "player2startkey": 50,
-      "player2endkey": 119,
-      "dualplayerstartkey": 97,
-      "dualplayerendkey": 122
+      "player1startkey": 114,
+      "player1endkey": 102,
+      "player2startkey": 117,
+      "player2endkey": 106,
+      "dualplayerstartkey": 116,
+      "dualplayerendkey": 121
     },
-    "boost" : {
+    "boost": {
       "boost1startkey": 55,
       "boost2startkey": 56,
       "boost3startkey": 57,

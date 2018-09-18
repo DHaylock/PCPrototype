@@ -37,7 +37,7 @@ enum class Mode {
 enum class KenKenState {
     Attractor,
     Explainer,
-    Ready,
+    Countdown,
     Game,
     Reward
 };

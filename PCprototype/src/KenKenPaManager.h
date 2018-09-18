@@ -86,7 +86,7 @@ public:
      Set To Game Mode
      */
     //--------------------------------------------------------------
-    void setWinMode();
+    void setRewardMode();
     
     /**
      Key Pressed Event
@@ -110,7 +110,8 @@ public:
     
     void videoStarted(string &id);
     void videoFinished(string &id);
-
+    
+    ofParameter <bool> bMasterControl;
     ofParameter <int> versionNo;
     ofParameter <bool> bLoad;
     

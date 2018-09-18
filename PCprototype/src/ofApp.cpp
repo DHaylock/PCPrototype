@@ -5,6 +5,9 @@ void ofApp::setup()
 {
     logSize = 25;
     
+    ofSetVerticalSync(true);
+    ofSetFrameRate(120);
+    
     // Setup the Gui
     gui.setup();
 
@@ -117,7 +120,7 @@ void ofApp::drawGui()
                 ofxImGui::AddGroup(visualManager.parameters,mainSetting);
             
                 ofxImGui::AddRadio(StateManager::instance().currentKenKenMode,{"One Player","Two Player"});
-                ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Explainer","Ready","Win","Reward"});
+                ofxImGui::AddRadio(StateManager::instance().currentKenKenState,{"Attractor","Explainer","Countdown","Game","Reward"});
                 
                 ofxImGui::EndTree(mainSetting);
             }
