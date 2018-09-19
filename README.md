@@ -5,7 +5,38 @@ Sophie Sampson Playble City Prototype
 This is the repository for the Playable city prototype for Sophie Samsom.
 The system takes the screen data and converts it into pixel data which is then displayed onto LED panels.
 
-![Dev Gif](./docs/dev.gif)
+#### Constructed Box
+![Box](./docs/Box.png)
+
+#### Interface
+![Interface](./docs/dev.gif)
+
+### Default Key Map
+
+The Current Key Map for actions.
+
+All other actions handled by the gui.
+
+Key | ASCII | Purpose 
+--- | --- | ---
+*ESC* | 13 | Kills the Application
+*q* | 113 | All Stop
+*1* | 49 | Attractor Mode
+*2* | 50 | Explainer Mode
+*3* | 51 | Countdown Mode
+*4* | 52 | Game Mode
+*5* | 53 | Reward Mode
+*7* | 55 | Boost Video 1
+*8* | 56 | Boost Video 2
+*9* | 57 | Boost Video 3
+*0* | 48 | Boost Video 4
+*l* | DNA | Kill Boost Video
+*r* | 114 | Start Player One Timer
+*u* | 117 | Start Player Two Timer
+*f* | 102 | End Player One Timer
+*u* | 117 | End Player Two Timer
+*t* | 116 | Start Dual Player
+*y* | 121 | End Dual Player
 
 ### Setup
 #### Raspberry Pi Setup
@@ -195,6 +226,13 @@ cd openFrameworks/apps/myApps/PCPrototype/bin
 * Save and Exit
 * Reboot
 
+**Alternatively**
+
+You can launch the application yourself. 
+On the Desktop there should be a symbolic link to the Application folder.
+
+Double Click the PCPrototype Executable file and chose execute.
+
 ### OpenFrameworks Compilation
 
 These are the instructions for compiling openFrameworks
@@ -209,7 +247,7 @@ sudo apt-get upgrade
 cd /home/pi
 curl -k -O https://openframeworks.cc/versions/v0.10.0/of_v0.10.0_linuxarmv6l_release.tar.gz
 mkdir openFrameworks
-tar vxfz of_v0.9.8_linuxarmv6l_release.tar.gz -C openFrameworks --strip-components 1 
+tar vxfz of_v0.10.0_linuxarmv6l_release.tar.gz -C openFrameworks --strip-components 1 
 
 # Install Dependancies
 cd /home/pi/openFrameworks/scripts/linux/debian
@@ -229,7 +267,6 @@ git clone https://github.com/andreasmuller/ofxAutoReloadedShader.git
 git clone https://github.com/jeffcrouse/ofxJSON.git
 git clone https://github.com/arturoc/ofxEasing.git
 git clone https://github.com/jvcleave/ofxImGui.git
-git clone https://github.com/jvcleave/ofxOmxPlayer.git
 ```
 
 ### Configuration
@@ -280,24 +317,54 @@ Configures the KenKenPa State. Essentially you can load multiple videos into the
 
 ```
 "kenkenpa": {
-    "player1startkey": 2,
-    "player1endkey": 1,
-    "player2startkey": 2,
-    "player2endkey": 5,
+    "triggerkeys": {
+      "allstop": 113,
+      "attractormode": 49,
+      "explainermode": 50,
+      "countdownmode": 51,
+      "gamemode": 52,
+      "winmode": 53
+    },
+    "playertriggerkeys": {
+      "player1startkey": 114,
+      "player1endkey": 102,
+      "player2startkey": 117,
+      "player2endkey": 106,
+      "dualplayerstartkey": 116,
+      "dualplayerendkey": 121
+    },
+    "boost": {
+      "boost1startkey": 55,
+      "boost2startkey": 56,
+      "boost3startkey": 57,
+      "boost4startkey": 48,
+      "boost1": "Videos/boost/arrows_colourtest_2.mov",
+      "boost2": "Videos/boost/2.mov",
+      "boost3": "Videos/boost/3.mov",
+      "boost4": "Videos/boost/4.mov"
+    },
     "versions": [
       {
         "id": 0,
-        "waitouttimer": 5000,
-        "attractortimer": 60000,
+        "waitouttimer": 1500,
+        "attractortimer": 2000,
         "name": "Default",
-        "attractor": "",
-        "kiosk": "",
-        "reward": ""
+        "attractor": "Videos/attractors/1.mov",
+        "kiosk": "Videos/kiosks/1.mov",
+        "reward": "Videos/rewards/1.mov"
+      },
+      {
+        "id": 1,
+        "waitouttimer": 1500,
+        "attractortimer": 2000,
+        "name": "Default 2",
+        "attractor": "Videos/attractors/spots_attractor_1.mov",
+        "kiosk": "Videos/kiosks/spots_explainer_2.mov",
+        "reward": "Videos/rewards/spots_p1_wins.mov"
       }
     ]
-  },
+  }
 ```
-
 
 ### Equipment List
 
@@ -306,6 +373,24 @@ Qty | description | Purpose | link
 1 | Raspberry Pi 3B + Kit | To drive the animations and game engine. | [https://coolcomponents.co.uk/products/raspberry-pi-3-official-starter-kit-white?variant=45223172494](https://coolcomponents.co.uk/products/raspberry-pi-3-official-starter-kit-white?variant=45223172494)
 1 | Mini Fan | Cool the Raspberry Pi | [https://coolcomponents.co.uk/products/miniature-5v-cooling-fan-for-raspberry-pi-and-other-computers?variant=522504470542](https://coolcomponents.co.uk/products/miniature-5v-cooling-fan-for-raspberry-pi-and-other-computers?variant=522504470542)
 1 | Bluetooth Keyboard | Initial Triggering of Animations and effects | [https://www.amazon.co.uk/iPazzPort-Bluetooth-Wireless-Keyboard-Raspberry/dp/B074DTH11L/ref=sr_1_1?ie=UTF8&qid=1534325624&sr=8-1&keywords=bluetooth+keyboard+raspberry+pi](https://www.amazon.co.uk/iPazzPort-Bluetooth-Wireless-Keyboard-Raspberry/dp/B074DTH11L/ref=sr_1_1?ie=UTF8&qid=1534325624&sr=8-1&keywords=bluetooth+keyboard+raspberry+pi)
-1 | 5v 16amp Power Supply | To power the LED panels (**Warning:** this power supply is extremely dangerous and should not be tampered with) | [http://cpc.farnell.com/stontronics/pd-100-5/power-supply-enclosed-5v-100w/dp/PW03539?st=Power%20Supply%205v%2016amp](http://cpc.farnell.com/stontronics/pd-100-5/power-supply-enclosed-5v-100w/dp/PW03539?st=Power%20Supply%205v%2016amp) 
+1 | 5v 40amp Power Supply | To power the LED panels (**Warning:** this power supply is extremely dangerous and should not be tampered with) | [http://cpc.farnell.com/stontronics/pd-100-5/power-supply-enclosed-5v-100w/dp/PW03539?st=Power%20Supply%205v%2016amp](http://cpc.farnell.com/stontronics/pd-100-5/power-supply-enclosed-5v-100w/dp/PW03539?st=Power%20Supply%205v%2016amp) 
 1 | RGB Matrix Bonnet | Sends the LED data from the raspberry pi to the LED panels | [https://coolcomponents.co.uk/products/adafruit-rgb-matrix-bonnet-for-raspberry-pi](https://coolcomponents.co.uk/products/adafruit-rgb-matrix-bonnet-for-raspberry-pi)
 6 | RGB Matrix Panels | Display Animations | [https://www.robotshop.com/uk/32x32-rgb-led-matrix.html](https://www.robotshop.com/uk/32x32-rgb-led-matrix.html)
+
+### Box Construction
+
+Thanks to Oliver Humpage
+
+* Has holes in the wrong place, so needs editing before reusing
+* Box design from https://boxdesigner.connectionlab.org/
+* B&Q “5mm” plywood is 5.5mm thick
+* Cut width should be 0.2mm
+
+**SVG**
+![Box Laser Cut](./docs/box-led-5.5mm.svg)
+
+**Wiring of the Unit**
+![Wiring](./docs/Wiring.png)
+
+**Power Wiring**
+![Power](./docs/Power.png)

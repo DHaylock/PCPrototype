@@ -34,7 +34,8 @@
       "boost1": "Videos/boost/arrows_colourtest_2.mov",
       "boost2": "Videos/boost/2.mov",
       "boost3": "Videos/boost/3.mov",
-      "boost4": "Videos/boost/4.mov"   },
+      "boost4": "Videos/boost/4.mov"
+    },
     "versions": [
       {
         "id": 0,
