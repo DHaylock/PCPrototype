@@ -53,7 +53,6 @@ void KenKenPaManager::init()
     ofAddListener(boostPlayer.videoFinished, this, &KenKenPaManager::videoFinished);
     
     boostPlayer.loadVideo(data.boostFile1,"Boost 1");
-    boostPlayer.setLoopState(OF_LOOP_NONE);
     
     arrow.load("Textures/white-arrow.png");
     
@@ -72,6 +71,8 @@ void KenKenPaManager::init()
     colors.push_back(ofColor(0,29,245));
     colors.push_back(ofColor(215,49,137));
     colors.push_back(ofColor(225,109,56));
+
+    boostPlayer.setLoopState(OF_LOOP_NORMAL);
 }
 
 //-------------------------------------------------------------
@@ -100,10 +101,10 @@ void KenKenPaManager::loadVersion(bool &val)
         attractorPlayer.setLoopState(OF_LOOP_NORMAL);
         
         explainerPlayer.loadVideo(data.versions[id].kioskFile,"Kiosk");
-        explainerPlayer.setLoopState(OF_LOOP_NONE);
+        explainerPlayer.setLoopState(OF_LOOP_NORMAL);
         
         rewardPlayer.loadVideo(data.versions[id].rewardFile,"Reward");
-        rewardPlayer.setLoopState(OF_LOOP_NONE);
+        rewardPlayer.setLoopState(OF_LOOP_NORMAL);
         
         bLoad = false;
         
@@ -461,6 +462,8 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
 //        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile2, "Boost 2");
         boostPlayer.playVideo();
+        boostPlayer.setLoopState(OF_LOOP_NORMAL);
+
         bShowBoost = true;
     }
     
@@ -469,6 +472,7 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
 //        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile3, "Boost 3");
         boostPlayer.playVideo();
+        boostPlayer.setLoopState(OF_LOOP_NORMAL);
         bShowBoost = true;
     }
     
@@ -477,8 +481,17 @@ void KenKenPaManager::keyPressed(ofKeyEventArgs &key)
 //        boostPlayer.close();
         boostPlayer.loadVideo(data.boostFile4, "Boost 4");
         boostPlayer.playVideo();
+        boostPlayer.setLoopState(OF_LOOP_NORMAL);
+
         bShowBoost = true;
     }
+
+    if(key.key == 'l')
+    {
+	boostPlayer.stopVideo();
+	bShowBoost = false;
+    }
+
 }
 
 //-------------------------------------------------------------
@@ -522,7 +535,7 @@ void KenKenPaManager::videoFinished(string &id)
 {
     cout << id << " Finished" << endl;
     
-    if(id == "Kiosk")
+/*    if(id == "Kiosk")
     {
         StateManager::instance().currentKenKenState = static_cast<int>(KenKenState::Countdown);
         countDown = 3;
@@ -532,10 +545,10 @@ void KenKenPaManager::videoFinished(string &id)
     {
         attractorTimer.start();
     }
-    else if(ofIsStringInString(id, "Boost"))
+    if(ofIsStringInString(id, "Boost"))
     {
         bShowBoost = false;
-    }
+    }*/
 }
 
 //-------------------------------------------------------------
