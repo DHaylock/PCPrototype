@@ -8,12 +8,15 @@ void ofApp::setup()
     ofSetVerticalSync(true);
     ofSetFrameRate(120);
     
-    // Setup the Gui
-    gui.setup();
-
 #ifndef TARGET_RASPBERRY_PI
     ofSetDataPathRoot("../Resources/data/");
 #endif
+    
+    ImGuiIO * io = &ImGui::GetIO();
+    io->Fonts->AddFontFromFileTTF(&ofToDataPath("Fonts/Trebuchet.ttf")[0], 24.f);
+    
+    // Setup the Gui
+    gui.setup();
 
     // Load the Configuration
     Config::instance().load();
