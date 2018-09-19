@@ -13,6 +13,11 @@
 #include "Tween.h"
 #include "ofxCenteredTrueTypeFont.h"
 
+#define COLOR_1 ofColor::fromHex(0x00aeef)
+#define COLOR_2 ofColor::fromHex(0x0000ff)
+#define COLOR_3 ofColor::fromHex(0xec008c)
+#define COLOR_4 ofColor::fromHex(0xff5707)
+
 //--------------------------------------------------------------
 enum class Effects
 {

@@ -54,6 +54,24 @@ void KenKenPaManager::init()
     
     boostPlayer.loadVideo(data.boostFile1,"Boost 1");
     boostPlayer.setLoopState(OF_LOOP_NONE);
+    
+    arrow.load("Textures/white-arrow.png");
+    
+    positions.push_back(ofRectangle(90,150,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-50,50,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-190,170,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    
+    positions.push_back(ofRectangle(90,370,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-50,270,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-190,390,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    
+    positions.push_back(ofRectangle(90,590,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-50,490,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    positions.push_back(ofRectangle(-190,610,arrow.getWidth()/4*3,arrow.getHeight()/4*3));
+    
+    colors.push_back(ofColor(0,29,245));
+    colors.push_back(ofColor(215,49,137));
+    colors.push_back(ofColor(225,109,56));
 }
 
 //-------------------------------------------------------------
@@ -213,8 +231,12 @@ void KenKenPaManager::renderRewardGameState()
 {
     ofSetColor(255, 255, 255);
     rewardPlayer.draw(0, 0,ofGetWidth(), ofGetHeight());
-    string status = "Here";
     
+    
+    
+    
+    string status = "Here";
+    float direction = 0;
     switch (StateManager::instance().currentKenKenMode)
     {
         case static_cast<int>(KenKenMode::OnePlayer):
@@ -227,10 +249,12 @@ void KenKenPaManager::renderRewardGameState()
             if(player1Stopwatch.getElapsedTimef() < player2Stopwatch.getElapsedTimef())
             {
                 status = "Player 1 Wins";
+                direction = -0.7;
             }
             else if(player1Stopwatch.getElapsedTimef() > player2Stopwatch.getElapsedTimef())
             {
                 status = "Player 2 Wins";
+                direction = 0.7;
             }
         }
             break;
@@ -239,6 +263,36 @@ void KenKenPaManager::renderRewardGameState()
             break;
     }
 
+    
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2,0);
+    ofScale(direction, 1.2);
+
+    if(ofGetFrameNum() % 30 == 0)
+    {
+        counter[0]++;
+        counter[1]++;
+        counter[2]++;
+    }
+    
+    for(int i = 0; i < 3; i++) {
+        if(counter[i] >= colors.size())
+        {
+            counter[i] = 0;
+        }
+    }
+    
+    for (int i = 0; i < positions.size()-2; i+=3)
+    {
+        ofSetColor(colors[counter[0]]);
+        arrow.draw(positions[i].x, positions[i].y,positions[i].width,positions[i].height);
+        ofSetColor(colors[counter[1]]);
+        arrow.draw(positions[i+1].x, positions[i+1].y,positions[i+1].width,positions[i+1].height);
+        ofSetColor(colors[counter[2]]);
+        arrow.draw(positions[i+2].x, positions[i+2].y,positions[i+2].width,positions[i+2].height);
+    }
+    ofPopMatrix();
+    
     ofSetColor(255,255,255);
     timerFont.drawStringCentered(status, ofGetWidth()/2, ofGetHeight()-100);
 }

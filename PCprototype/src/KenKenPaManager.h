@@ -137,6 +137,11 @@ public:
     
     Stopwatch player1Stopwatch;
     Stopwatch player2Stopwatch;
+    ofImage arrow;
+    
+    vector <ofRectangle> positions;
+    vector <ofColor> colors;
+    int counter[3] = {0,1,2};
 };
 
 #endif /* KenKenPaManager_h */

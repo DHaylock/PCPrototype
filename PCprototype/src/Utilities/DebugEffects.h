@@ -340,13 +340,14 @@ class DebugEffects
                 fireworks.push_front(Firework(ofVec2f(ofGetWidth()/2+ofRandom(-ofGetWidth()/4,ofGetWidth()/4),ofGetHeight()), ofVec2f(0,ofRandom(-30,-20))));
             }
             
-            if(fireworks.size() > 25) fireworks.pop_back();
+            if(fireworks.size() > 5) fireworks.pop_back();
             
             for (int i = 0; i < fireworks.size(); i++)
             {
                 fireworks[i].update();
                 fireworks[i].draw();
             }
+            ofDrawBitmapString(ofToString(fireworks.size()),15,15);
         }
     
     
