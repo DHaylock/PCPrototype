@@ -79,6 +79,8 @@ void ofApp::keyPressed(int key)
             }
         }
             break;
+        case '-': StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::OnePlayer); break;
+        case '=': StateManager::instance().currentKenKenMode = static_cast<int>(KenKenMode::TwoPlayers); break;
         default:
             break;
     }

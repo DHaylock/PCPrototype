@@ -226,7 +226,7 @@ void KenKenPaManager::renderGameState()
                 timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-50);
                 ofPushMatrix();
                 ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
-                ofScale(5, 5);
+                ofScale(3, 3);
                 ofSetColor(goColors[goColorsCounter]);
                 bigFont.drawStringCentered("GO", 0, 0);
                 ofPopMatrix();
@@ -243,7 +243,7 @@ void KenKenPaManager::renderGameState()
             {
                 ofPushMatrix();
                 ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
-                ofScale(5, 5);
+                ofScale(3, 3);
                 ofSetColor(goColors[goColorsCounter]);
                 bigFont.drawStringCentered("GO", 0, 0);
                 ofPopMatrix();
@@ -310,7 +310,7 @@ void KenKenPaManager::renderRewardGameState()
     
     ofPushMatrix();
     ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
-    ofScale(5, 5);
+    ofScale(2, 2);
     ofSetColor(goColors[goColorsCounter]);
     bigFont.drawStringCentered(status, 0, 0);
     ofPopMatrix();
