@@ -214,8 +214,8 @@ class DebugEffects
                 case static_cast<int>(Effects::Fountain): renderFountain(); break;
                 case static_cast<int>(Effects::Fireworks): renderFireworks(); break;
                 case static_cast<int>(Effects::BlockColor): renderBlockColor(); break;
-                case static_cast<int>(Effects::FadeToWhite): renderMouseEffect(); break;
-                case static_cast<int>(Effects::RotatingCircles): renderMouseEffect(); break;
+                case static_cast<int>(Effects::FadeToWhite): renderRectangleColor(); break;
+                case static_cast<int>(Effects::RotatingCircles): renderRing(); break;
                 default: break;
             }
         }
@@ -231,7 +231,7 @@ class DebugEffects
             float hue = fmodf(ofGetElapsedTimef()*10,255);
             ofColor c = ofColor::fromHsb(hue, 255, 255);
             ofSetColor(c);
-            ofDrawCircle(ofGetMouseX(),ofGetMouseY(),10);
+            ofDrawCircle(ofGetMouseX(),ofGetMouseY(),100);
             ofPopStyle();
         }
     
@@ -307,6 +307,38 @@ class DebugEffects
                     ca++;
                 }
             }
+            ofPopStyle();
+        }
+    
+        /**
+         Render the Block Color Effect
+         */
+        //--------------------------------------------------------------
+        void renderRectangleColor()
+        {
+            int width = ofGetWidth();
+            int height = ofGetHeight();
+            
+            ofPushStyle();
+            float hue = fmodf(ofGetElapsedTimef()*10.2,255);
+            ofColor c = ofColor::fromHsb(hue, 255, 255);
+            ofSetColor(c);
+            ofDrawRectangle(0,0,width,height);
+            ofPopStyle();
+        }
+    
+        void renderRing()
+        {
+            float i = 5.0 + 2.5 * cos(ofGetElapsedTimef()*2.5);
+            ofPushStyle();
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+            ofScale(i, i);
+            float hue = fmodf(ofGetElapsedTimef()*10.2,255);
+            ofColor c = ofColor::fromHsb(hue, 255, 255);
+            ofSetColor(c);
+            ringTex.draw(-ringTex.getWidth()/2,-ringTex.getHeight()/2);
+            ofPopMatrix();
             ofPopStyle();
         }
     

@@ -72,6 +72,12 @@ void KenKenPaManager::init()
     colors.push_back(ofColor(215,49,137));
     colors.push_back(ofColor(225,109,56));
 
+    goColorsCounter = 0;
+    
+    goColors.push_back(COLOR_1);
+    goColors.push_back(COLOR_2);
+    goColors.push_back(COLOR_3);
+    
     boostPlayer.setLoopState(OF_LOOP_NORMAL);
 }
 
@@ -182,10 +188,19 @@ void KenKenPaManager::renderReadyState()
     ofScale(countDownTween.getCurrentValue(), countDownTween.getCurrentValue());
     ofSetColor(255, 255, 255);
     
-    if(countDown != 0)
+    if(countDown != 0) {
+        
+        if(countDown == 3) ofSetColor(COLOR_1);
+        else if(countDown == 2) ofSetColor(COLOR_2);
+        else if(countDown == 1) ofSetColor(COLOR_3);
+        
         bigFont.drawStringCentered(ofToString(countDown), 0, 0);
+    }
     else
+    {
+        ofSetColor(COLOR_1);
         bigFont.drawStringCentered("GO", 0, 0);
+    }
     
     ofPopMatrix();
 }
@@ -193,14 +208,28 @@ void KenKenPaManager::renderReadyState()
 //-------------------------------------------------------------
 void KenKenPaManager::renderGameState()
 {
+    if(ofGetFrameNum() % 15 == 0) goColorsCounter++;
+    
+    if(goColorsCounter >= goColors.size())
+    {
+        goColorsCounter = 0;
+    }
+
+    
+    ofSetColor(255,255,255);
     switch(StateManager::instance().currentKenKenMode)
     {
         case static_cast<int>(KenKenMode::OnePlayer):
         {
             if(player1Stopwatch.isRunning())
             {
-                timerFont.drawStringCentered("Player", ofGetWidth()/2, ofGetHeight()-100);
-                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-30);
+                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/2, ofGetHeight()-50);
+                ofPushMatrix();
+                ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
+                ofScale(5, 5);
+                ofSetColor(goColors[goColorsCounter]);
+                bigFont.drawStringCentered("GO", 0, 0);
+                ofPopMatrix();
             }
             else
             {
@@ -212,10 +241,16 @@ void KenKenPaManager::renderGameState()
         {
             if(player1Stopwatch.isRunning() || player2Stopwatch.isRunning())
             {
-                timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
-                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-30);
-                timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
-                timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-30);
+                ofPushMatrix();
+                ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
+                ofScale(5, 5);
+                ofSetColor(goColors[goColorsCounter]);
+                bigFont.drawStringCentered("GO", 0, 0);
+                ofPopMatrix();
+//                timerFont.drawStringCentered("Player 1", ofGetWidth()/4, ofGetHeight()-100);
+//                timerFont.drawStringCentered(ofToString(player1Stopwatch.getFormattedTime(false)), ofGetWidth()/4, ofGetHeight()-30);
+//                timerFont.drawStringCentered("Player 2" , ofGetWidth()/4*3, ofGetHeight()-100);
+//                timerFont.drawStringCentered(ofToString(player2Stopwatch.getFormattedTime(false)), ofGetWidth()/4*3, ofGetHeight()-30);
             }
             else
             {
@@ -236,25 +271,25 @@ void KenKenPaManager::renderRewardGameState()
     
     
     
-    string status = "Here";
+    string status = "";
     float direction = 0;
     switch (StateManager::instance().currentKenKenMode)
     {
         case static_cast<int>(KenKenMode::OnePlayer):
         {
-            status = "Player Time " + ofToString(player1Stopwatch.getFormattedTime(false));
+            status = ofToString(player1Stopwatch.getFormattedTime(false));
         }
             break;
         case static_cast<int>(KenKenMode::TwoPlayers):
         {
             if(player1Stopwatch.getElapsedTimef() < player2Stopwatch.getElapsedTimef())
             {
-                status = "Player 1 Wins";
+                status = "";
                 direction = -0.7;
             }
             else if(player1Stopwatch.getElapsedTimef() > player2Stopwatch.getElapsedTimef())
             {
-                status = "Player 2 Wins";
+                status = "";
                 direction = 0.7;
             }
         }
@@ -264,6 +299,23 @@ void KenKenPaManager::renderRewardGameState()
             break;
     }
 
+    ofPushMatrix();
+    ofSetColor(255,255,255);
+    if(ofGetFrameNum() % 15 == 0) goColorsCounter++;
+    
+    if(goColorsCounter >= goColors.size())
+    {
+        goColorsCounter = 0;
+    }
+    
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2,ofGetHeight()/2);
+    ofScale(5, 5);
+    ofSetColor(goColors[goColorsCounter]);
+    bigFont.drawStringCentered(status, 0, 0);
+    ofPopMatrix();
+
+    ofPopMatrix();
     
     ofPushMatrix();
     ofTranslate(ofGetWidth()/2,0);
@@ -294,8 +346,7 @@ void KenKenPaManager::renderRewardGameState()
     }
     ofPopMatrix();
     
-    ofSetColor(255,255,255);
-    timerFont.drawStringCentered(status, ofGetWidth()/2, ofGetHeight()-100);
+    
 }
 
 //-------------------------------------------------------------

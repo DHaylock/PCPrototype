@@ -141,6 +141,8 @@ public:
     
     vector <ofRectangle> positions;
     vector <ofColor> colors;
+    vector <ofColor> goColors;
+    int goColorsCounter;
     int counter[3] = {0,1,2};
 };
 
